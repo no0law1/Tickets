@@ -42,6 +42,10 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.info_requests = new System.Windows.Forms.ListView();
+            this.request_id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.request_created = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.request_response_date = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.request_admin_id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // pinned_state
@@ -141,7 +145,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(275, 121);
+            this.button2.Location = new System.Drawing.Point(275, 122);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 35);
             this.button2.TabIndex = 11;
@@ -161,11 +165,36 @@
             // 
             // info_requests
             // 
+            this.info_requests.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.request_id,
+            this.request_created,
+            this.request_response_date,
+            this.request_admin_id});
             this.info_requests.Location = new System.Drawing.Point(15, 255);
             this.info_requests.Name = "info_requests";
             this.info_requests.Size = new System.Drawing.Size(335, 129);
             this.info_requests.TabIndex = 13;
             this.info_requests.UseCompatibleStateImageBehavior = false;
+            this.info_requests.View = System.Windows.Forms.View.Details;
+            // 
+            // request_id
+            // 
+            this.request_id.Text = "ID";
+            this.request_id.Width = 40;
+            // 
+            // request_created
+            // 
+            this.request_created.Text = "Created";
+            this.request_created.Width = 64;
+            // 
+            // request_response_date
+            // 
+            this.request_response_date.Text = "Responded";
+            this.request_response_date.Width = 78;
+            // 
+            // request_admin_id
+            // 
+            this.request_admin_id.Text = "Admin";
             // 
             // TicketEdit
             // 
@@ -211,6 +240,10 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ListView info_requests;
+        private System.Windows.Forms.ColumnHeader request_id;
+        private System.Windows.Forms.ColumnHeader request_created;
+        private System.Windows.Forms.ColumnHeader request_response_date;
+        private System.Windows.Forms.ColumnHeader request_admin_id;
 
     }
 }

@@ -63,7 +63,8 @@ namespace L_IckEtS_EF
                 {
                     int code = int.Parse(ticket_list.SelectedItems[0].Text);
                     var ticket = new TicketSystemDBQueryable().getTicketById(db, code);
-                    new TicketEdit(ticket).Show();
+                    var info_requests = new TicketSystemDBQueryable().getTicketRequests(db, code);
+                    new TicketEdit(ticket, info_requests).Show();
                 }
             }
         }

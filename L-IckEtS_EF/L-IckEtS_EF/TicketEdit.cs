@@ -17,13 +17,13 @@ namespace L_IckEtS_EF
             InitializeComponent();
         }
 
-        public TicketEdit(ticket t)
+        public TicketEdit(ticket t, IQueryable<request> r)
         {
             InitializeComponent();
-            UpdateUI(t);
+            UpdateUI(t, r);
         }
 
-        private void UpdateUI(ticket t)
+        private void UpdateUI(ticket t, IQueryable<request> r)
         {
             this.Text = "Ticket " + t.code;
             state.Text = t.STATE;
@@ -31,6 +31,15 @@ namespace L_IckEtS_EF
             description.Text = t.description;
             created.Text = t.created_at.ToShortDateString();
             closed.Text = t.closed_at.HasValue ? t.closed_at.GetValueOrDefault().ToShortDateString() : "";
+
+            foreach(request req in r)
+            {
+                //TODO: insert requests to db for testing purposes
+                string response_date = req.response_date.HasValue ? req.response_date.Value.ToShortDateString() : "";
+                string[] row = { req.id.ToString(), req.created_at.ToShortDateString(), response_date, req.admin_id.ToString() };
+                var listViewItem = new ListViewItem(row);
+                info_requests.Items.Add(listViewItem);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
