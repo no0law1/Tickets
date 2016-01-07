@@ -35,7 +35,8 @@ namespace L_IckEtS_EF
         public virtual DbSet<step> step { get; set; }
         public virtual DbSet<ticket> ticket { get; set; }
         public virtual DbSet<type> type { get; set; }
-        public virtual DbSet<GetTicketsView> GetTicketsView { get; set; }
+        //changed type GetTicketsView to ticket
+        public virtual DbSet<ticket> GetTicketsView { get; set; }
     
         public virtual int CloseAction(Nullable<int> ticket_id, Nullable<int> type_id, Nullable<int> step_order)
         {

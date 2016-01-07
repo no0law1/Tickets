@@ -35,7 +35,7 @@ namespace L_IckEtS_EF
             }
         }
 
-        private void setUpListView(IQueryable<ticket> table)
+        private void setUpListView(IEnumerable<ticket> table)
         {
             foreach (var ticket in table)
             {

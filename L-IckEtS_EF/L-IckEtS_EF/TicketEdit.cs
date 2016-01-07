@@ -12,20 +12,24 @@ namespace L_IckEtS_EF
 {
     public partial class TicketEdit : Form
     {
+
+        private int code;
+
         public TicketEdit()
         {
             InitializeComponent();
         }
 
-        public TicketEdit(ticket t, IQueryable<request> r)
+        public TicketEdit(ticket t, IEnumerable<request> r)
         {
             InitializeComponent();
+            this.code = t.code;
             UpdateUI(t, r);
         }
 
-        private void UpdateUI(ticket t, IQueryable<request> r)
+        private void UpdateUI(ticket t, IEnumerable<request> r)
         {
-            this.Text = "Ticket " + t.code;
+            this.Text = "Ticket " + this.code;
             state.Text = t.STATE;
             priority.Text = t.priority;
             description.Text = t.description;
@@ -42,19 +46,24 @@ namespace L_IckEtS_EF
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void resolve_Click(object sender, EventArgs e)
         {
-
+            //TODO: new form with insert of actions?
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void export_Click(object sender, EventArgs e)
         {
-
+            // TODO: export info using xml schema
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void remove_Click(object sender, EventArgs e)
         {
-
+            using (ticket_systemEntities db = new ticket_systemEntities())
+            {
+                //FIXME: not working
+                db.DeleteTicket(code);
+            }
+            Close();
         }
     }
 }

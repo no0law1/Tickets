@@ -38,9 +38,9 @@
             this.description = new System.Windows.Forms.Label();
             this.created = new System.Windows.Forms.Label();
             this.closed = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.remove = new System.Windows.Forms.Button();
+            this.export = new System.Windows.Forms.Button();
+            this.resolve = new System.Windows.Forms.Button();
             this.info_requests = new System.Windows.Forms.ListView();
             this.request_id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.request_created = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -133,35 +133,35 @@
             this.closed.Size = new System.Drawing.Size(71, 13);
             this.closed.TabIndex = 9;
             // 
-            // button1
+            // remove
             // 
-            this.button1.Location = new System.Drawing.Point(275, 176);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 35);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Remove";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.remove.Location = new System.Drawing.Point(275, 176);
+            this.remove.Name = "remove";
+            this.remove.Size = new System.Drawing.Size(75, 35);
+            this.remove.TabIndex = 10;
+            this.remove.Text = "Remove";
+            this.remove.UseVisualStyleBackColor = true;
+            this.remove.Click += new System.EventHandler(this.remove_Click);
             // 
-            // button2
+            // export
             // 
-            this.button2.Location = new System.Drawing.Point(275, 122);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 35);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "Export";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.export.Location = new System.Drawing.Point(275, 122);
+            this.export.Name = "export";
+            this.export.Size = new System.Drawing.Size(75, 35);
+            this.export.TabIndex = 11;
+            this.export.Text = "Export";
+            this.export.UseVisualStyleBackColor = true;
+            this.export.Click += new System.EventHandler(this.export_Click);
             // 
-            // button3
+            // resolve
             // 
-            this.button3.Location = new System.Drawing.Point(275, 68);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 35);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "Resolve";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.resolve.Location = new System.Drawing.Point(275, 68);
+            this.resolve.Name = "resolve";
+            this.resolve.Size = new System.Drawing.Size(75, 35);
+            this.resolve.TabIndex = 12;
+            this.resolve.Text = "Resolve";
+            this.resolve.UseVisualStyleBackColor = true;
+            this.resolve.Click += new System.EventHandler(this.resolve_Click);
             // 
             // info_requests
             // 
@@ -180,21 +180,22 @@
             // request_id
             // 
             this.request_id.Text = "ID";
-            this.request_id.Width = 40;
+            this.request_id.Width = 65;
             // 
             // request_created
             // 
             this.request_created.Text = "Created";
-            this.request_created.Width = 64;
+            this.request_created.Width = 81;
             // 
             // request_response_date
             // 
             this.request_response_date.Text = "Responded";
-            this.request_response_date.Width = 78;
+            this.request_response_date.Width = 93;
             // 
             // request_admin_id
             // 
             this.request_admin_id.Text = "Admin";
+            this.request_admin_id.Width = 76;
             // 
             // TicketEdit
             // 
@@ -203,9 +204,9 @@
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(362, 396);
             this.Controls.Add(this.info_requests);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.resolve);
+            this.Controls.Add(this.export);
+            this.Controls.Add(this.remove);
             this.Controls.Add(this.closed);
             this.Controls.Add(this.created);
             this.Controls.Add(this.description);
@@ -236,9 +237,9 @@
         private System.Windows.Forms.Label description;
         private System.Windows.Forms.Label created;
         private System.Windows.Forms.Label closed;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button remove;
+        private System.Windows.Forms.Button export;
+        private System.Windows.Forms.Button resolve;
         private System.Windows.Forms.ListView info_requests;
         private System.Windows.Forms.ColumnHeader request_id;
         private System.Windows.Forms.ColumnHeader request_created;

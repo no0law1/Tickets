@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,25 +10,27 @@ namespace L_IckEtS_EF.utils
     class TicketSystemDBQueryable
     {
 
-        public IQueryable<ticket> getAllTicketsTable(ticket_systemEntities db)
+        internal IEnumerable<ticket> getAllTicketsTable(ticket_systemEntities db)
         {
-            return (from t in db.ticket where t.deleted_at == null select t);
+            return db.GetTicketsView.SqlQuery("SELECT * FROM ticket WHERE ticket.deleted_at is null").AsEnumerable();
+            //return (from t in db.ticket where t.deleted_at == null select t).AsEnumerable();
         }
 
-        public IQueryable<ticket> getNonClosedTicketsTable(ticket_systemEntities db)
+        internal IEnumerable<ticket> getNonClosedTicketsTable(ticket_systemEntities db)
         {
-            return (from t in db.ticket where t.closed_at == null && t.deleted_at == null select t);
+            return db.GetTicketsView.SqlQuery("SELECT * FROM ticket WHERE ticket.closed_at is null AND ticket.deleted_at is null").AsEnumerable();
+            //return (from t in db.ticket where t.closed_at == null && t.deleted_at == null select t).AsEnumerable();
         }
 
-        public ticket getTicketById(ticket_systemEntities db, int code)
+        internal ticket getTicketById(ticket_systemEntities db, int code)
         {
-            IQueryable<ticket> table = (from t in db.ticket where t.code == code select t);
-            return table.First();
+            return db.GetTicketsView.SqlQuery("SELECT * FROM ticket WHERE ticket.code = @code", new SqlParameter("@code", code)).First();
+            //return (from t in db.ticket where t.code == code select t).First();
         }
 
-        internal IQueryable<request> getTicketRequests(ticket_systemEntities db, int code)
+        internal IEnumerable<request> getTicketRequests(ticket_systemEntities db, int code)
         {
-            return (from r in db.request where r.ticket_id == code select r);
+            return (from r in db.request where r.ticket_id == code select r).AsEnumerable();
         }
     }
 }
