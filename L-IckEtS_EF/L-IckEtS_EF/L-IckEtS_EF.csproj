@@ -106,9 +106,16 @@
     <Compile Include="ticket.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="TicketEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TicketEdit.Designer.cs">
+      <DependentUpon>TicketEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="type.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="utils\TicketSystemDBQueryable.cs" />
     <EmbeddedResource Include="Index.resx">
       <DependentUpon>Index.cs</DependentUpon>
     </EmbeddedResource>
@@ -121,6 +128,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TicketEdit.resx">
+      <DependentUpon>TicketEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EntityDeploy Include="DB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DB.Designer.cs</LastGenOutput>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using L_IckEtS_EF.utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,46 +16,55 @@ namespace L_IckEtS_EF
         public Index()
         {
             InitializeComponent();
-            InitUI();
+            UpdateUI();
         }
 
-        private void InitUI()
+        private void UpdateUI()
         {
-            using (var db = new ticket_systemEntities())
+            ticket_list.Items.Clear();
+            using (ticket_systemEntities db = new ticket_systemEntities())
             {
                 if (show_non_closed.Checked)
                 {
-                    Console.WriteLine("non closed");
-                    foreach (var ticket in db.ticket)
-                    {
-                        string closed = ticket.closed_at == null ? "" : ticket.closed_at.ToString();
-                        string[] row = { ticket.code.ToString(), ticket.STATE, ticket.created_at.ToString(), closed, ticket.priority, ticket.admin_id.ToString() };
-                        var listViewItem = new ListViewItem(row);
-                        ticket_list.Items.Add(listViewItem);
-                    }
+                    setUpListView(new TicketSystemDBQueryable().getNonClosedTicketsTable(db));
                 }
                 else
                 {
-
+                    setUpListView(new TicketSystemDBQueryable().getAllTicketsTable(db));
                 }
+            }
+        }
+
+        private void setUpListView(IQueryable<ticket> table)
+        {
+            foreach (var ticket in table)
+            {
+                string closed = ticket.closed_at == null ? "" : ticket.closed_at.ToString();
+                string[] row = { ticket.code.ToString(), ticket.STATE, ticket.created_at.ToString(), closed, ticket.priority, ticket.admin_id.ToString() };
+                var listViewItem = new ListViewItem(row);
+                ticket_list.Items.Add(listViewItem);
             }
         }
 
         private void show_non_closed_CheckedChanged(object sender, EventArgs e)
         {
-
+            UpdateUI();
         }
 
         private void edit_ticket_Click(object sender, EventArgs e)
         {
-            using(var db = new ticket_systemEntities())
+            using (ticket_systemEntities db = new ticket_systemEntities())
             {
-                // selected items returns the code. Need lokking into
-                int code = int.Parse(ticket_list.SelectedItems[0].Text);
-                var ticket = (from t in db.ticket
-                                  where t.code == code
-                                  select t).FirstOrDefault();
-                MessageBox.Show("Ticket: " + ticket.code+ ", "+ticket.STATE);
+                if (ticket_list.SelectedItems.Count < 1)
+                {
+                    MessageBox.Show("You need to select a Ticket");
+                }
+                else
+                {
+                    int code = int.Parse(ticket_list.SelectedItems[0].Text);
+                    var ticket = new TicketSystemDBQueryable().getTicketById(db, code);
+                    new TicketEdit(ticket).Show();
+                }
             }
         }
     }
