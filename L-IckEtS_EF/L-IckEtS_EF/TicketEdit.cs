@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Core.Objects;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,15 @@ namespace L_IckEtS_EF
 {
     public partial class TicketEdit : Form
     {
+
+        public delegate void RemovedEventHandler(object sender, EventArgs e);
+        public event RemovedEventHandler Removed;
+
+        protected virtual void OnRemoved(EventArgs e)
+        {
+            if (Removed != null)
+                Removed(this, e);
+        }
 
         private int code;
 
@@ -60,8 +71,17 @@ namespace L_IckEtS_EF
         {
             using (ticket_systemEntities db = new ticket_systemEntities())
             {
-                //FIXME: not working
-                db.DeleteTicket(code);
+                ObjectParameter count = new ObjectParameter("res", SqlDbType.Int);
+                db.RemoveTicket(code, count);
+                if (!count.Value.Equals(0))
+                {
+                    MessageBox.Show("Ticket successfully removed");
+                    OnRemoved(EventArgs.Empty);
+                }
+                else
+                {
+                    MessageBox.Show("Error");
+                }
             }
             Close();
         }

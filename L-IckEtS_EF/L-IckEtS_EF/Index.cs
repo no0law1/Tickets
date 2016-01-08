@@ -13,9 +13,15 @@ namespace L_IckEtS_EF
 {
     public partial class Index : Form
     {
+
         public Index()
         {
             InitializeComponent();
+            UpdateUI();
+        }
+
+        private void TicketRemoved(object sender, EventArgs e)
+        {
             UpdateUI();
         }
 
@@ -64,7 +70,9 @@ namespace L_IckEtS_EF
                     int code = int.Parse(ticket_list.SelectedItems[0].Text);
                     var ticket = new TicketSystemDBQueryable().getTicketById(db, code);
                     var info_requests = new TicketSystemDBQueryable().getTicketRequests(db, code);
-                    new TicketEdit(ticket, info_requests).Show();
+                    TicketEdit t = new TicketEdit(ticket, info_requests);
+                    t.Removed += new TicketEdit.RemovedEventHandler(TicketRemoved);
+                    t.Show();
                 }
             }
         }
