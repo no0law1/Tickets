@@ -1,57 +1,57 @@
-<? xmlversion ="1.0" encoding="UTF-8"?>
-<xs : schemaattributeFormDefault="unqualified" elementFormDefault="qualified"
-			xmlns : xs="http://www.w3.org/2001/XMLSchema">
-    <xs : elementname="ticket" type="ticketType"/>
-    <xs : complexTypename="ownerType">
-        <xs : simpleContent >
-            <xs : extensionbase="xs:string">
-                <xs : attributetype="xs:string" name="ownerID" use="required"/>
-                <xs : attributetype="xs:string" name="name"/>
-                <xs : attributetype="xs:string" name="email" use="required"/>
-            </ xs : extension >
-        </ xs : simpleContent >
-    </ xs : complexType >
-    <xs : complexTypename="actionType">
-        <xs : simpleContent >
-            <xs : extensionbase="xs:string">
-                <xs : attributetype="xs:string" name="orderNum" use="required"/>
-                <xs : attributetype="xs:string" name="beginDate" use="required"/>
-                <xs : attributetype="xs:string" name="endDate" use="optional"/>
-            </ xs : extension >
-        </ xs : simpleContent >
-    </ xs : complexType >
-    <xs : complexTypename="supervisorType">
-        <xs : simpleContent >
-            <xs : extensionbase="xs:string">
-                <xs : attributetype="xs:string" name="technicianID" use="required"/>
-                <xs : attributetype="xs:string" name="name" use="required"/>
-                <xs : attributetype="xs:string" name="email" use="required"/>
-            </ xs : extension >
-        </ xs : simpleContent >
-    </ xs : complexType >
-    <xs : complexTypename="typeType">
-        <xs : simpleContent >
-            <xs : extensionbase="xs:string">
-                <xs : attributetype="xs:string" name="typeID" use="required"/>
-                <xs : attributetype="xs:string" name="name" use="required"/>
-            </ xs : extension >
-        </ xs : simpleContent >
-    </ xs : complexType >
-    <xs : complexTypename="actionsType">
-        <xs : sequence >
-            <xs : elementtype="actionType" name="action" maxOccurs="unbounded" minOccurs="0"/>
-        </ xs : sequence >
-    </ xs : complexType >
-    <xs : complexTypename="ticketType">
-        <xs : sequence >
-            <xs : elementtype="ownerType" name="owner"/>
-            <xs : elementtype="supervisorType" name="supervisor"/>
-            <xs : elementtype="xs:string" name="description"/>
-            <xs : elementtype="typeType" name="type"/>
-            <xs : elementtype="actionsType" name="actions"/>
-        </ xs : sequence >
-        <xs : attributetype="xs:string" name="type" use="required"/>
-        <xs : attributetype="xs:string" name="ticketID" use="required"/>
-        <xs : attributetype="xs:string" name="status" use="required"/>
-    </ xs : complexType >
-</ xs : schema>
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+			xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="ticket" type="ticketType"/>
+    <xs:complexType name="ownerType">
+        <xs:simpleContent >
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="ownerID" use="required"/>
+                <xs:attribute type="xs:string" name="name"/>
+                <xs:attribute type="xs:string" name="email" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="actionType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="orderNum" use="required"/>
+                <xs:attribute type="xs:string" name="beginDate" use="required"/>
+                <xs:attribute type="xs:string" name="endDate" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="supervisorType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="technicianID" use="required"/>
+                <xs:attribute type="xs:string" name="name" use="required"/>
+                <xs:attribute type="xs:string" name="email" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="typeType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="typeID" use="required"/>
+                <xs:attribute type="xs:string" name="name" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="actionsType">
+        <xs:sequence>
+            <xs:element type="actionType" name="action" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ticketType">
+        <xs:sequence>
+            <xs:element type="ownerType" name="owner"/>
+            <xs:element type="supervisorType" name="supervisor"/>
+            <xs:element type="xs:string" name="description"/>
+            <xs:element type="typeType" name="type"/>
+            <xs:element type="actionsType" name="actions"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="type" use="required"/>
+        <xs:attribute type="xs:string" name="ticketID" use="required"/>
+        <xs:attribute type="xs:string" name="status" use="required"/>
+    </xs:complexType>
+</xs:schema>
