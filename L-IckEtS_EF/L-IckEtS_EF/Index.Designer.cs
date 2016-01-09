@@ -31,7 +31,7 @@
             this.techs = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.tickets = new System.Windows.Forms.TabPage();
-            this.edit_ticket = new System.Windows.Forms.Button();
+            this.details_ticket = new System.Windows.Forms.Button();
             this.ticket_list = new System.Windows.Forms.ListView();
             this.code = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.state = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -70,7 +70,7 @@
             // 
             this.tickets.AccessibleName = "";
             this.tickets.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.tickets.Controls.Add(this.edit_ticket);
+            this.tickets.Controls.Add(this.details_ticket);
             this.tickets.Controls.Add(this.ticket_list);
             this.tickets.Controls.Add(this.show_non_closed);
             this.tickets.Location = new System.Drawing.Point(4, 22);
@@ -81,15 +81,15 @@
             this.tickets.Text = "Tickets";
             this.tickets.UseVisualStyleBackColor = true;
             // 
-            // edit_ticket
+            // details_ticket
             // 
-            this.edit_ticket.Location = new System.Drawing.Point(6, 291);
-            this.edit_ticket.Name = "edit_ticket";
-            this.edit_ticket.Size = new System.Drawing.Size(89, 27);
-            this.edit_ticket.TabIndex = 5;
-            this.edit_ticket.Text = "Edit";
-            this.edit_ticket.UseVisualStyleBackColor = true;
-            this.edit_ticket.Click += new System.EventHandler(this.edit_ticket_Click);
+            this.details_ticket.Location = new System.Drawing.Point(6, 291);
+            this.details_ticket.Name = "details_ticket";
+            this.details_ticket.Size = new System.Drawing.Size(89, 27);
+            this.details_ticket.TabIndex = 5;
+            this.details_ticket.Text = "Details";
+            this.details_ticket.UseVisualStyleBackColor = true;
+            this.details_ticket.Click += new System.EventHandler(this.edit_ticket_Click);
             // 
             // ticket_list
             // 
@@ -190,7 +190,7 @@
         private System.Windows.Forms.ColumnHeader closed;
         private System.Windows.Forms.ColumnHeader priority;
         private System.Windows.Forms.ColumnHeader admin;
-        private System.Windows.Forms.Button edit_ticket;
+        private System.Windows.Forms.Button details_ticket;
         private System.Windows.Forms.Button button1;
 
     }

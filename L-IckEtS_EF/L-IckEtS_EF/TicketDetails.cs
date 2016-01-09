@@ -4,22 +4,20 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Entity.Core.Objects;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace L_IckEtS_EF
 {
-    public partial class TicketEdit : Form
+    public partial class TicketDetails : Form
     {
-
         public delegate void RemovedEventHandler(object sender, EventArgs e);
+
         public event RemovedEventHandler Removed;
 
         protected virtual void OnRemoved(EventArgs e)
@@ -30,25 +28,19 @@ namespace L_IckEtS_EF
 
         private ticket t;
 
-        public TicketEdit()
+        public TicketDetails()
         {
             InitializeComponent();
         }
 
-        public TicketEdit(ticket t, IEnumerable<request> r)
+        public TicketDetails(ticket t, IEnumerable<request> r)
         {
             InitializeComponent();
             this.t = t;
             UpdateUI(t, r);
         }
-
         private void UpdateUI(ticket t, IEnumerable<request> r)
         {
-            if (!t.STATE.Equals("In Progress"))
-            {
-                resolve.Enabled = false;
-            }
-
             this.Text = "Ticket " + this.t.code;
             state.Text = t.STATE;
             priority.Text = t.priority;
@@ -56,18 +48,13 @@ namespace L_IckEtS_EF
             created.Text = t.created_at.ToShortDateString();
             closed.Text = t.closed_at.HasValue ? t.closed_at.GetValueOrDefault().ToShortDateString() : "";
 
-            foreach(request req in r)
+            foreach (request req in r)
             {
                 string response_date = req.response_date.HasValue ? req.response_date.Value.ToShortDateString() : "";
                 string[] row = { req.id.ToString(), req.created_at.ToShortDateString(), response_date, req.admin_id.ToString() };
                 var listViewItem = new ListViewItem(row);
                 info_requests.Items.Add(listViewItem);
             }
-        }
-
-        private void resolve_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private void export_Click(object sender, EventArgs e)
