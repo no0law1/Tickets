@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ticket_systemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ticket_systemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="action">
           <Key>
             <PropertyRef Name="ticket_id" />
@@ -25,6 +25,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NAME" Type="varchar" MaxLength="63" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="63" />
         </EntityType>
         <EntityType Name="client">
           <Key>
@@ -262,6 +263,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
         </Function>
         <Function Name="CreateAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
           <Parameter Name="res" Type="int" Mode="InOut" />
         </Function>
         <Function Name="CreateClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -327,7 +329,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
         </Function>
         <Function Name="SetTicketPriority" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="code" Type="int" Mode="In" />
-          <Parameter Name="priority" Type="int" Mode="In" />
+          <Parameter Name="priority" Type="varchar" Mode="In" />
         </Function>
         <Function Name="SetTicketState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="code" Type="int" Mode="In" />
@@ -428,8 +430,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
             <End Role="ticket" EntitySet="ticket" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ticket_systemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -459,6 +460,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
           <NavigationProperty Name="action" Relationship="Self.FK__action__admin_id__239E4DCF" FromRole="administrator" ToRole="action" />
           <NavigationProperty Name="request" Relationship="Self.FK__request__admin_i__29572725" FromRole="administrator" ToRole="request" />
           <NavigationProperty Name="ticket" Relationship="Self.FK__ticket__admin_id__182C9B23" FromRole="administrator" ToRole="ticket" />
+          <Property Name="email" Type="String" MaxLength="63" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="client">
           <Key>
@@ -753,7 +755,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
             <Parameter Name="step_order" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CloseTicket">
-            <Parameter Name="code" Mode="In" Type="Int32" />
+          <Parameter Name="code" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CreateAction">
             <Parameter Name="note" Mode="In" Type="String" />
@@ -764,6 +766,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
           </FunctionImport>
           <FunctionImport Name="CreateAdmin">
             <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="res" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CreateClient">
@@ -783,7 +786,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
             <Parameter Name="description" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CreateType">
-            <Parameter Name="name" Mode="In" Type="String" />
+          <Parameter Name="name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="DeleteAdmin">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -799,13 +802,13 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
             <Parameter Name="id_type" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DeleteTicket">
-            <Parameter Name="code" Mode="In" Type="Int32" />
+          <Parameter Name="code" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DeleteType">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetPriorityTickets" ReturnType="Collection(ticket_systemModel.GetPriorityTickets_Result)">
-            <Parameter Name="rows" Mode="In" Type="Int32" />
+          <Parameter Name="rows" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetRandomAdmin" />
           <FunctionImport Name="RemoveTicket">
@@ -829,7 +832,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
           </FunctionImport>
           <FunctionImport Name="SetTicketPriority">
             <Parameter Name="code" Mode="In" Type="Int32" />
-            <Parameter Name="priority" Mode="In" Type="Int32" />
+            <Parameter Name="priority" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SetTicketState">
             <Parameter Name="code" Mode="In" Type="Int32" />
@@ -840,7 +843,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
             <Parameter Name="id_type" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ShowTicketInfo" ReturnType="Collection(ticket_systemModel.ShowTicketInfo_Result)">
-            <Parameter Name="code" Mode="In" Type="Int32" />
+          <Parameter Name="code" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UpdateAdmin">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -860,7 +863,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
             <Parameter Name="id_type" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UpdateTicketPriority">
-            <Parameter Name="code" Mode="In" Type="Int32" />
+          <Parameter Name="code" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetPriorityTickets_Result">
@@ -899,6 +902,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
           <EntitySetMapping Name="administrator">
             <EntityTypeMapping TypeName="ticket_systemModel.administrator">
               <MappingFragment StoreEntitySet="administrator">
+                <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
               </MappingFragment>

@@ -9,6 +9,14 @@ namespace L_IckEtS_EF.utils
 {
     class XMLUtils
     {
+        static internal XElement ticketToXml(ticket t)
+        {
+            return new XElement("ticket",
+                    new XAttribute("type", t.id_type),
+                    new XAttribute("ticketID", t.code),
+                    new XAttribute("status", t.STATE));
+        }
+
         static internal XElement ownerToXml(client c)
         {
             return new XElement("owner",
@@ -23,7 +31,7 @@ namespace L_IckEtS_EF.utils
             return new XElement("supervisor",
                     new XAttribute("technicianID", admin.id),
                     new XAttribute("name", admin.NAME),
-                    new XAttribute("email", "admin has no email"),  //TODO: change admin on the database to have an email
+                    new XAttribute("email", admin.email),
                     admin.NAME);
         }
 
@@ -54,8 +62,8 @@ namespace L_IckEtS_EF.utils
         {
             return new XElement("action",
                     new XAttribute("orderNum", a.step_order),
-                    new XAttribute("beginDate", a.created_at),
-                    new XAttribute("endDate", a.ended_at));
+                    new XAttribute("beginDate", a.created_at.ToShortDateString()),
+                    new XAttribute("endDate", a.ended_at==null?"":a.ended_at.GetValueOrDefault().ToShortDateString()));
         }
     }
 }

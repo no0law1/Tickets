@@ -35,7 +35,6 @@ namespace L_IckEtS_EF
         public virtual DbSet<step> step { get; set; }
         public virtual DbSet<ticket> ticket { get; set; }
         public virtual DbSet<type> type { get; set; }
-        //changed type GetTicketsView to ticket
         public virtual DbSet<ticket> GetTicketsView { get; set; }
     
         public virtual int CloseAction(Nullable<int> ticket_id, Nullable<int> type_id, Nullable<int> step_order)
@@ -89,13 +88,17 @@ namespace L_IckEtS_EF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateAction", noteParameter, ticket_idParameter, admin_idParameter, step_orderParameter, id_typeParameter);
         }
     
-        public virtual int CreateAdmin(string name, ObjectParameter res)
+        public virtual int CreateAdmin(string name, string email, ObjectParameter res)
         {
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateAdmin", nameParameter, res);
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateAdmin", nameParameter, emailParameter, res);
         }
     
         public virtual int CreateClient(string name, string email)
@@ -290,15 +293,15 @@ namespace L_IckEtS_EF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetClientName", idParameter, nameParameter);
         }
     
-        public virtual int SetTicketPriority(Nullable<int> code, Nullable<int> priority)
+        public virtual int SetTicketPriority(Nullable<int> code, string priority)
         {
             var codeParameter = code.HasValue ?
                 new ObjectParameter("code", code) :
                 new ObjectParameter("code", typeof(int));
     
-            var priorityParameter = priority.HasValue ?
+            var priorityParameter = priority != null ?
                 new ObjectParameter("priority", priority) :
-                new ObjectParameter("priority", typeof(int));
+                new ObjectParameter("priority", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetTicketPriority", codeParameter, priorityParameter);
         }

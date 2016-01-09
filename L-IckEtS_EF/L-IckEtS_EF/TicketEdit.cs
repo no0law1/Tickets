@@ -44,6 +44,11 @@ namespace L_IckEtS_EF
 
         private void UpdateUI(ticket t, IEnumerable<request> r)
         {
+            if (!t.STATE.Equals("In Progress"))
+            {
+                resolve.Enabled = false;
+            }
+
             this.Text = "Ticket " + this.t.code;
             state.Text = t.STATE;
             priority.Text = t.priority;
@@ -53,7 +58,6 @@ namespace L_IckEtS_EF
 
             foreach(request req in r)
             {
-                //TODO: insert requests to db for testing purposes
                 string response_date = req.response_date.HasValue ? req.response_date.Value.ToShortDateString() : "";
                 string[] row = { req.id.ToString(), req.created_at.ToShortDateString(), response_date, req.admin_id.ToString() };
                 var listViewItem = new ListViewItem(row);
@@ -63,7 +67,7 @@ namespace L_IckEtS_EF
 
         private void resolve_Click(object sender, EventArgs e)
         {
-            //TODO: new form with insert of actions?
+            
         }
 
         private void export_Click(object sender, EventArgs e)
@@ -80,14 +84,12 @@ namespace L_IckEtS_EF
                     tp = new TicketSystemDBQueryable().getTypeById(db, t.id_type);
                 actions = new TicketSystemDBQueryable().getActionsByTicketId(db, t.code);
 
-                XElement ticket_xml = new XElement("ticket",
-                    new XAttribute("type", tp == null ? null : tp.NAME), new XAttribute("ticketID", t.code), new XAttribute("status", t.STATE),
-                    XMLUtils.ownerToXml(c),
-                    XMLUtils.supervisorToXml(admin),
-                    new XElement("description", t.description),
-                    XMLUtils.typeToXml(tp),
-                    XMLUtils.actionsToXml(actions)
-                );
+                XElement ticket_xml = XMLUtils.ticketToXml(t);
+                ticket_xml.Add(XMLUtils.ownerToXml(c));
+                ticket_xml.Add(XMLUtils.supervisorToXml(admin));
+                ticket_xml.Add(new XElement("description", t.description));
+                ticket_xml.Add(XMLUtils.typeToXml(tp));
+                ticket_xml.Add(XMLUtils.actionsToXml(actions));
 
                 XDocument final = new XDocument(new XDeclaration("1.0", "utf-8", null), ticket_xml);
 
