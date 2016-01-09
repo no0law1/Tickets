@@ -1,0 +1,61 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace L_IckEtS_EF.utils
+{
+    class XMLUtils
+    {
+        static internal XElement ownerToXml(client c)
+        {
+            return new XElement("owner",
+                    new XAttribute("ownerID", c.id),
+                    new XAttribute("name", c.NAME),
+                    new XAttribute("email", c.email),
+                    c.NAME);
+        }
+
+        static internal XElement supervisorToXml(administrator admin)
+        {
+            return new XElement("supervisor",
+                    new XAttribute("technicianID", admin.id),
+                    new XAttribute("name", admin.NAME),
+                    new XAttribute("email", "admin has no email"),  //TODO: change admin on the database to have an email
+                    admin.NAME);
+        }
+
+        static internal XElement typeToXml(type tp)
+        {
+            if (tp == null)
+            {
+                return new XElement("type");
+            }
+
+            return new XElement("type",
+                    new XAttribute("typeID", tp.id),
+                    new XAttribute("name", tp.NAME),
+                    tp.NAME);
+        }
+
+        static internal XElement actionsToXml(IEnumerable<action> actions)
+        {
+            XElement actions_xml = new XElement("actions");
+            foreach (action a in actions)
+            {
+                actions_xml.Add(actionToXml(a));
+            }
+            return actions_xml;
+        }
+
+        static internal XElement actionToXml(action a)
+        {
+            return new XElement("action",
+                    new XAttribute("orderNum", a.step_order),
+                    new XAttribute("beginDate", a.created_at),
+                    new XAttribute("endDate", a.ended_at));
+        }
+    }
+}

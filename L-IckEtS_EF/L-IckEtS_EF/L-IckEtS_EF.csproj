@@ -116,6 +116,7 @@
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="utils\TicketSystemDBQueryable.cs" />
+    <Compile Include="utils\XMLUtils.cs" />
     <EmbeddedResource Include="Index.resx">
       <DependentUpon>Index.cs</DependentUpon>
     </EmbeddedResource>

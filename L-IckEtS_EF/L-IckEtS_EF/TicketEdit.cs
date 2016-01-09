@@ -1,4 +1,5 @@
-﻿using System;
+﻿using L_IckEtS_EF.utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -67,30 +68,35 @@ namespace L_IckEtS_EF
 
         private void export_Click(object sender, EventArgs e)
         {
-            //TODO: GET TYPE OF TICKET, OWNER, ADMIN AND ALL ACTIONS. THEN FILL
-            XElement owner_xml = new XElement("owner", new XAttribute("ownerID", t.client_id), new XAttribute("name", "name"), new XAttribute("email", "email"), "Don't know what to put here");
-            XElement supervisor_xml = new XElement("supervisor", new XAttribute("technicianID", t.admin_id), new XAttribute("name", "name"), new XAttribute("email", "email"), "Don't know what to put here");
-            XElement description_xml = new XElement("description", t.description);
+            client c = null;
+            administrator admin = null;
+            type tp = null;
+            IEnumerable<action> actions = null;
+            using (ticket_systemEntities db = new ticket_systemEntities())
+            {
+                c = new TicketSystemDBQueryable().getClientById(db, t.client_id);
+                admin = new TicketSystemDBQueryable().getAdminById(db, t.admin_id);
+                if (t.id_type != null)
+                    tp = new TicketSystemDBQueryable().getTypeById(db, t.id_type);
+                actions = new TicketSystemDBQueryable().getActionsByTicketId(db, t.code);
 
-            //TODO: type may be null, if so exception must be handled
-            XElement type_xml = new XElement("type", new XAttribute("typeID", "typeID"), new XAttribute("name", "name"), "Don't know what to put here");
-            XElement actions_xml = new XElement("actions", "TODO: get actions");
+                XElement ticket_xml = new XElement("ticket",
+                    new XAttribute("type", tp == null ? null : tp.NAME), new XAttribute("ticketID", t.code), new XAttribute("status", t.STATE),
+                    XMLUtils.ownerToXml(c),
+                    XMLUtils.supervisorToXml(admin),
+                    new XElement("description", t.description),
+                    XMLUtils.typeToXml(tp),
+                    XMLUtils.actionsToXml(actions)
+                );
 
-            //TODO: type may be null, if so exception must be handled
-            XElement ticket_xml = new XElement("ticket", new XAttribute("type", "type"), new XAttribute("ticketID", t.code), new XAttribute("status", t.STATE),
-                owner_xml,
-                supervisor_xml,
-                description_xml,
-                type_xml,
-                actions_xml
-            );
+                XDocument final = new XDocument(new XDeclaration("1.0", "utf-8", null), ticket_xml);
 
-            XDocument final = new XDocument(new XDeclaration("1.0", "utf-8", null), ticket_xml);
-
-            //StringWriter returns encoding utf-16. No worries :)
-            var wr = new StringWriter();
-            final.Save(wr);
-            Console.Write(wr.GetStringBuilder().ToString());
+                //StringWriter returns encoding utf-16. No worries :)
+                var wr = new StringWriter();
+                //TODO: Save into file
+                final.Save(wr);
+                Console.Write(wr.GetStringBuilder().ToString());
+            }
         }
 
         private void remove_Click(object sender, EventArgs e)

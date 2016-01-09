@@ -28,6 +28,26 @@ namespace L_IckEtS_EF.utils
             //return (from t in db.ticket where t.code == code select t).First();
         }
 
+        internal client getClientById(ticket_systemEntities db, int id)
+        {
+            return db.client.SqlQuery("select * from client where id = @id", new SqlParameter("@id", id)).First();
+        }
+        
+        internal administrator getAdminById(ticket_systemEntities db, int id)
+        {
+            return db.administrator.SqlQuery("select * from administrator where id = @id", new SqlParameter("@id", id)).First();
+        }
+
+        internal type getTypeById(ticket_systemEntities db, int? id)
+        {
+            return db.type.SqlQuery("select * from type where id = @id", new SqlParameter("@id", id)).First();
+        }
+
+        internal IEnumerable<action> getActionsByTicketId(ticket_systemEntities db, int id)
+        {
+            return db.action.SqlQuery("select * from action where ticket_id = @id", new SqlParameter("@id", id)).AsEnumerable();
+        }
+
         internal IEnumerable<request> getTicketRequests(ticket_systemEntities db, int code)
         {
             return (from r in db.request where r.ticket_id == code select r).AsEnumerable();
