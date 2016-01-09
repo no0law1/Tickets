@@ -51,12 +51,16 @@
             this.remove = new System.Windows.Forms.Button();
             this.pinned_note = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.to_close = new System.Windows.Forms.CheckBox();
             this.subimt_action = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.step_order = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.ticket_details.SuspendLayout();
             this.ticket_requests.SuspendLayout();
             this.ticket_actions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.step_order)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -222,8 +226,11 @@
             // 
             // ticket_actions
             // 
+            this.ticket_actions.Controls.Add(this.listBox1);
+            this.ticket_actions.Controls.Add(this.label4);
+            this.ticket_actions.Controls.Add(this.step_order);
+            this.ticket_actions.Controls.Add(this.label3);
             this.ticket_actions.Controls.Add(this.subimt_action);
-            this.ticket_actions.Controls.Add(this.to_close);
             this.ticket_actions.Controls.Add(this.textBox1);
             this.ticket_actions.Controls.Add(this.pinned_note);
             this.ticket_actions.Controls.Add(this.export);
@@ -274,16 +281,6 @@
             this.textBox1.Size = new System.Drawing.Size(220, 68);
             this.textBox1.TabIndex = 14;
             // 
-            // to_close
-            // 
-            this.to_close.AutoSize = true;
-            this.to_close.Location = new System.Drawing.Point(188, 80);
-            this.to_close.Name = "to_close";
-            this.to_close.Size = new System.Drawing.Size(85, 17);
-            this.to_close.TabIndex = 15;
-            this.to_close.Text = "Close Ticket";
-            this.to_close.UseVisualStyleBackColor = true;
-            // 
             // subimt_action
             // 
             this.subimt_action.Location = new System.Drawing.Point(193, 182);
@@ -292,6 +289,60 @@
             this.subimt_action.TabIndex = 1;
             this.subimt_action.Text = "Submit";
             this.subimt_action.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(5, 80);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(33, 13);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "Step";
+            // 
+            // step_order
+            // 
+            this.step_order.Location = new System.Drawing.Point(48, 80);
+            this.step_order.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.step_order.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.step_order.Name = "step_order";
+            this.step_order.Size = new System.Drawing.Size(134, 20);
+            this.step_order.TabIndex = 1;
+            this.step_order.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(5, 103);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(37, 13);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "State";
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Items.AddRange(new object[] {
+            "Waiting",
+            "In Progress",
+            "Closed"});
+            this.listBox1.Location = new System.Drawing.Point(48, 103);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(134, 43);
+            this.listBox1.TabIndex = 20;
             // 
             // TicketDetails
             // 
@@ -306,6 +357,7 @@
             this.ticket_requests.ResumeLayout(false);
             this.ticket_actions.ResumeLayout(false);
             this.ticket_actions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.step_order)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -336,6 +388,9 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label pinned_note;
         private System.Windows.Forms.Button subimt_action;
-        private System.Windows.Forms.CheckBox to_close;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown step_order;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
