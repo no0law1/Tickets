@@ -71,7 +71,7 @@ namespace L_IckEtS_EF
                     var ticket = new TicketSystemDBQueryable().getTicketById(db, code);
                     var info_requests = new TicketSystemDBQueryable().getTicketRequests(db, code);
                     TicketDetails t = new TicketDetails(ticket, info_requests);
-                    t.Removed += new TicketDetails.RemovedEventHandler(TicketRemoved);
+                    t.Changed += new TicketDetails.RemovedEventHandler(TicketRemoved);
                     t.Show();
                 }
             }

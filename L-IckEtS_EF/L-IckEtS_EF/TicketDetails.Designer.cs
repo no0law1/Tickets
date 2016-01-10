@@ -47,15 +47,17 @@
             this.request_response_date = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.request_admin_id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ticket_actions = new System.Windows.Forms.TabPage();
+            this.state_list = new System.Windows.Forms.ListBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.step_order = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.subimt_action = new System.Windows.Forms.Button();
+            this.note = new System.Windows.Forms.TextBox();
+            this.pinned_note = new System.Windows.Forms.Label();
             this.export = new System.Windows.Forms.Button();
             this.remove = new System.Windows.Forms.Button();
-            this.pinned_note = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.subimt_action = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.step_order = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.pinned_type = new System.Windows.Forms.Label();
+            this.type = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.ticket_details.SuspendLayout();
             this.ticket_requests.SuspendLayout();
@@ -76,6 +78,8 @@
             // 
             // ticket_details
             // 
+            this.ticket_details.Controls.Add(this.type);
+            this.ticket_details.Controls.Add(this.pinned_type);
             this.ticket_details.Controls.Add(this.closed);
             this.ticket_details.Controls.Add(this.created);
             this.ticket_details.Controls.Add(this.description);
@@ -110,9 +114,9 @@
             // 
             // description
             // 
-            this.description.Location = new System.Drawing.Point(95, 48);
+            this.description.Location = new System.Drawing.Point(95, 72);
             this.description.Name = "description";
-            this.description.Size = new System.Drawing.Size(160, 143);
+            this.description.Size = new System.Drawing.Size(160, 119);
             this.description.TabIndex = 8;
             // 
             // priority
@@ -153,7 +157,7 @@
             // 
             this.pinned_description.AutoSize = true;
             this.pinned_description.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pinned_description.Location = new System.Drawing.Point(8, 48);
+            this.pinned_description.Location = new System.Drawing.Point(8, 72);
             this.pinned_description.Name = "pinned_description";
             this.pinned_description.Size = new System.Drawing.Size(71, 13);
             this.pinned_description.TabIndex = 3;
@@ -226,12 +230,12 @@
             // 
             // ticket_actions
             // 
-            this.ticket_actions.Controls.Add(this.listBox1);
+            this.ticket_actions.Controls.Add(this.state_list);
             this.ticket_actions.Controls.Add(this.label4);
             this.ticket_actions.Controls.Add(this.step_order);
             this.ticket_actions.Controls.Add(this.label3);
             this.ticket_actions.Controls.Add(this.subimt_action);
-            this.ticket_actions.Controls.Add(this.textBox1);
+            this.ticket_actions.Controls.Add(this.note);
             this.ticket_actions.Controls.Add(this.pinned_note);
             this.ticket_actions.Controls.Add(this.export);
             this.ticket_actions.Controls.Add(this.remove);
@@ -243,62 +247,27 @@
             this.ticket_actions.Text = "Resolve";
             this.ticket_actions.UseVisualStyleBackColor = true;
             // 
-            // export
+            // state_list
             // 
-            this.export.Location = new System.Drawing.Point(8, 182);
-            this.export.Name = "export";
-            this.export.Size = new System.Drawing.Size(75, 35);
-            this.export.TabIndex = 12;
-            this.export.Text = "Export";
-            this.export.UseVisualStyleBackColor = true;
-            this.export.Click += new System.EventHandler(this.export_Click);
+            this.state_list.FormattingEnabled = true;
+            this.state_list.Items.AddRange(new object[] {
+            "Waiting",
+            "In Progress",
+            "Closed"});
+            this.state_list.Location = new System.Drawing.Point(48, 103);
+            this.state_list.Name = "state_list";
+            this.state_list.Size = new System.Drawing.Size(134, 43);
+            this.state_list.TabIndex = 20;
             // 
-            // remove
+            // label4
             // 
-            this.remove.Location = new System.Drawing.Point(100, 182);
-            this.remove.Name = "remove";
-            this.remove.Size = new System.Drawing.Size(75, 35);
-            this.remove.TabIndex = 11;
-            this.remove.Text = "Remove";
-            this.remove.UseVisualStyleBackColor = true;
-            this.remove.Click += new System.EventHandler(this.remove_Click);
-            // 
-            // pinned_note
-            // 
-            this.pinned_note.AutoSize = true;
-            this.pinned_note.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pinned_note.Location = new System.Drawing.Point(8, 3);
-            this.pinned_note.Name = "pinned_note";
-            this.pinned_note.Size = new System.Drawing.Size(34, 13);
-            this.pinned_note.TabIndex = 13;
-            this.pinned_note.Text = "Note";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(48, 6);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(220, 68);
-            this.textBox1.TabIndex = 14;
-            // 
-            // subimt_action
-            // 
-            this.subimt_action.Location = new System.Drawing.Point(193, 182);
-            this.subimt_action.Name = "subimt_action";
-            this.subimt_action.Size = new System.Drawing.Size(75, 35);
-            this.subimt_action.TabIndex = 1;
-            this.subimt_action.Text = "Submit";
-            this.subimt_action.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(5, 80);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 13);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Step";
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(5, 103);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(37, 13);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "State";
             // 
             // step_order
             // 
@@ -322,27 +291,80 @@
             0,
             0});
             // 
-            // label4
+            // label3
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(5, 103);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 13);
-            this.label4.TabIndex = 19;
-            this.label4.Text = "State";
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(5, 80);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(33, 13);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "Step";
             // 
-            // listBox1
+            // subimt_action
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Items.AddRange(new object[] {
-            "Waiting",
-            "In Progress",
-            "Closed"});
-            this.listBox1.Location = new System.Drawing.Point(48, 103);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(134, 43);
-            this.listBox1.TabIndex = 20;
+            this.subimt_action.Location = new System.Drawing.Point(193, 182);
+            this.subimt_action.Name = "subimt_action";
+            this.subimt_action.Size = new System.Drawing.Size(75, 35);
+            this.subimt_action.TabIndex = 1;
+            this.subimt_action.Text = "Submit";
+            this.subimt_action.UseVisualStyleBackColor = true;
+            this.subimt_action.Click += new System.EventHandler(this.subimt_action_Click);
+            // 
+            // note
+            // 
+            this.note.Location = new System.Drawing.Point(48, 6);
+            this.note.Multiline = true;
+            this.note.Name = "note";
+            this.note.Size = new System.Drawing.Size(220, 68);
+            this.note.TabIndex = 14;
+            // 
+            // pinned_note
+            // 
+            this.pinned_note.AutoSize = true;
+            this.pinned_note.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pinned_note.Location = new System.Drawing.Point(8, 3);
+            this.pinned_note.Name = "pinned_note";
+            this.pinned_note.Size = new System.Drawing.Size(34, 13);
+            this.pinned_note.TabIndex = 13;
+            this.pinned_note.Text = "Note";
+            // 
+            // export
+            // 
+            this.export.Location = new System.Drawing.Point(8, 182);
+            this.export.Name = "export";
+            this.export.Size = new System.Drawing.Size(75, 35);
+            this.export.TabIndex = 12;
+            this.export.Text = "Export";
+            this.export.UseVisualStyleBackColor = true;
+            this.export.Click += new System.EventHandler(this.export_Click);
+            // 
+            // remove
+            // 
+            this.remove.Location = new System.Drawing.Point(100, 182);
+            this.remove.Name = "remove";
+            this.remove.Size = new System.Drawing.Size(75, 35);
+            this.remove.TabIndex = 11;
+            this.remove.Text = "Remove";
+            this.remove.UseVisualStyleBackColor = true;
+            this.remove.Click += new System.EventHandler(this.remove_Click);
+            // 
+            // pinned_type
+            // 
+            this.pinned_type.AutoSize = true;
+            this.pinned_type.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pinned_type.Location = new System.Drawing.Point(8, 47);
+            this.pinned_type.Name = "pinned_type";
+            this.pinned_type.Size = new System.Drawing.Size(35, 13);
+            this.pinned_type.TabIndex = 11;
+            this.pinned_type.Text = "Type";
+            // 
+            // type
+            // 
+            this.type.Location = new System.Drawing.Point(95, 47);
+            this.type.Name = "type";
+            this.type.Size = new System.Drawing.Size(163, 13);
+            this.type.TabIndex = 12;
             // 
             // TicketDetails
             // 
@@ -350,6 +372,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.tabControl1);
+            this.MaximizeBox = false;
             this.Name = "TicketDetails";
             this.tabControl1.ResumeLayout(false);
             this.ticket_details.ResumeLayout(false);
@@ -385,12 +408,14 @@
         private System.Windows.Forms.ColumnHeader request_admin_id;
         private System.Windows.Forms.Button remove;
         private System.Windows.Forms.Button export;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox note;
         private System.Windows.Forms.Label pinned_note;
         private System.Windows.Forms.Button subimt_action;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown step_order;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox state_list;
+        private System.Windows.Forms.Label type;
+        private System.Windows.Forms.Label pinned_type;
     }
 }

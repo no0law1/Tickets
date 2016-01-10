@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Entity.Core.Objects;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -18,15 +19,17 @@ namespace L_IckEtS_EF
     {
         public delegate void RemovedEventHandler(object sender, EventArgs e);
 
-        public event RemovedEventHandler Removed;
+        public event RemovedEventHandler Changed;
 
-        protected virtual void OnRemoved(EventArgs e)
+        protected virtual void OnTicketChanged(EventArgs e)
         {
-            if (Removed != null)
-                Removed(this, e);
+            if (Changed != null)
+                Changed(this, e);
         }
 
         private ticket t;
+
+        public static int admin_id;
 
         public TicketDetails()
         {
@@ -41,19 +44,32 @@ namespace L_IckEtS_EF
         }
         private void UpdateUI(ticket t, IEnumerable<request> r)
         {
+            // DETAILS
             this.Text = "Ticket " + this.t.code;
             state.Text = t.STATE;
             priority.Text = t.priority;
+            type.Text = t.type==null?"":t.type.NAME;
             description.Text = t.description;
             created.Text = t.created_at.ToShortDateString();
             closed.Text = t.closed_at.HasValue ? t.closed_at.GetValueOrDefault().ToShortDateString() : "";
 
+            // REQUESTS
             foreach (request req in r)
             {
                 string response_date = req.response_date.HasValue ? req.response_date.Value.ToShortDateString() : "";
                 string[] row = { req.id.ToString(), req.created_at.ToShortDateString(), response_date, req.admin_id.ToString() };
                 var listViewItem = new ListViewItem(row);
                 info_requests.Items.Add(listViewItem);
+            }
+
+            // RESOLVE
+            if (!t.STATE.Equals("In Progress"))
+            {
+                this.tabControl1.TabPages.Remove(ticket_actions);
+            }
+            else
+            {
+                state_list.SetSelected(1, true);
             }
         }
 
@@ -97,7 +113,7 @@ namespace L_IckEtS_EF
                 if (!count.Value.Equals(0))
                 {
                     MessageBox.Show("Ticket successfully removed");
-                    OnRemoved(EventArgs.Empty);
+                    OnTicketChanged(EventArgs.Empty);
                 }
                 else
                 {
@@ -105,6 +121,41 @@ namespace L_IckEtS_EF
                 }
             }
             Close();
+        }
+
+        private void subimt_action_Click(object sender, EventArgs e)
+        {
+            //ASK ADMIN ID
+            new AskAdminID().ShowDialog();
+            //if (check)
+            using(ticket_systemEntities db = new ticket_systemEntities())
+            {
+                // IN PROGRESS
+                if (state_list.SelectedItem.ToString().Equals(t.STATE))
+                {
+                    db.CreateAction(note.Text, t.code, admin_id, (int)step_order.Value, t.id_type);
+                }
+                else
+                {
+                    if (db.action.SqlQuery("select * from action where ticket_id = @id", new SqlParameter("@id", t.code)).Any())
+                    {
+                        MessageBox.Show(t.code + " " + admin_id);
+                        if (t.admin_id == admin_id)
+                        {
+                            db.CloseTicket(t.code);
+                            OnTicketChanged(EventArgs.Empty);
+                        }
+                        else
+                        {
+                            MessageBox.Show("You cannot close this ticket");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("This ticket has no Actions");
+                    }
+                }
+            }
         }
     }
 }
