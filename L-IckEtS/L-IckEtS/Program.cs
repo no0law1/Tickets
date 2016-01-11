@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace L_IckEtS
+namespace L_IckEtS_EF
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace L_IckEtS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new App());
+            Application.Run(new Index());
         }
     }
 }

@@ -9,5 +9,9 @@ namespace L_IckEtS.command.common
     abstract class Command : ICommand
     {
 
+        public void execute()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
