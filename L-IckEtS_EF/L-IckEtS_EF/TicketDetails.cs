@@ -29,13 +29,6 @@ namespace L_IckEtS_EF
 
         private ticket t;
 
-        public static int admin_id;
-
-        public TicketDetails()
-        {
-            InitializeComponent();
-        }
-
         public TicketDetails(ticket t, IEnumerable<request> r)
         {
             InitializeComponent();
@@ -69,7 +62,7 @@ namespace L_IckEtS_EF
             }
             else
             {
-                state_list.SetSelected(1, true);
+                state_list.SetSelected(0, true);
             }
         }
 
@@ -123,14 +116,14 @@ namespace L_IckEtS_EF
             Close();
         }
 
-        private void subimt_action_Click(object sender, EventArgs e)
+        private void submit_action_Click(object sender, EventArgs e)
         {
-            //ASK ADMIN ID
-            new AskAdminID().ShowDialog();
-            //if (check)
-            using(ticket_systemEntities db = new ticket_systemEntities())
+            AskAdminID admin = new AskAdminID();
+            admin.ShowDialog();
+
+            int admin_id = admin.id;
+            using (ticket_systemEntities db = new ticket_systemEntities())
             {
-                // IN PROGRESS
                 if (state_list.SelectedItem.ToString().Equals(t.STATE))
                 {
                     db.CreateAction(note.Text, t.code, admin_id, (int)step_order.Value, t.id_type);
@@ -139,7 +132,6 @@ namespace L_IckEtS_EF
                 {
                     if (db.action.SqlQuery("select * from action where ticket_id = @id", new SqlParameter("@id", t.code)).Any())
                     {
-                        MessageBox.Show(t.code + " " + admin_id);
                         if (t.admin_id == admin_id)
                         {
                             db.CloseTicket(t.code);

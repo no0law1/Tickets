@@ -28,17 +28,20 @@ namespace L_IckEtS_EF
         private void UpdateUI()
         {
             ticket_list.Items.Clear();
+
+            IEnumerable<ticket> tickets;
             using (ticket_systemEntities db = new ticket_systemEntities())
             {
                 if (show_non_closed.Checked)
                 {
-                    setUpListView(new TicketSystemDBQueryable().getNonClosedTicketsTable(db));
+                    tickets = new TicketSystemDBQueryable().getNonClosedTicketsTable(db);
                 }
                 else
                 {
-                    setUpListView(new TicketSystemDBQueryable().getAllTicketsTable(db));
+                    tickets = new TicketSystemDBQueryable().getAllTicketsTable(db);
                 }
             }
+            setUpListView(tickets);
         }
 
         private void setUpListView(IEnumerable<ticket> table)

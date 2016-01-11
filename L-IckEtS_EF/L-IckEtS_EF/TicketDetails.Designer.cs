@@ -30,6 +30,8 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.ticket_details = new System.Windows.Forms.TabPage();
+            this.type = new System.Windows.Forms.Label();
+            this.pinned_type = new System.Windows.Forms.Label();
             this.closed = new System.Windows.Forms.Label();
             this.created = new System.Windows.Forms.Label();
             this.description = new System.Windows.Forms.Label();
@@ -39,7 +41,7 @@
             this.pinned_created = new System.Windows.Forms.Label();
             this.pinned_description = new System.Windows.Forms.Label();
             this.pinned_priority = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.pinned_details_state = new System.Windows.Forms.Label();
             this.ticket_requests = new System.Windows.Forms.TabPage();
             this.info_requests = new System.Windows.Forms.ListView();
             this.request_id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -48,16 +50,14 @@
             this.request_admin_id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ticket_actions = new System.Windows.Forms.TabPage();
             this.state_list = new System.Windows.Forms.ListBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.pinned_state = new System.Windows.Forms.Label();
             this.step_order = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
-            this.subimt_action = new System.Windows.Forms.Button();
+            this.pinned_step = new System.Windows.Forms.Label();
+            this.submit_action = new System.Windows.Forms.Button();
             this.note = new System.Windows.Forms.TextBox();
             this.pinned_note = new System.Windows.Forms.Label();
             this.export = new System.Windows.Forms.Button();
             this.remove = new System.Windows.Forms.Button();
-            this.pinned_type = new System.Windows.Forms.Label();
-            this.type = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.ticket_details.SuspendLayout();
             this.ticket_requests.SuspendLayout();
@@ -89,7 +89,7 @@
             this.ticket_details.Controls.Add(this.pinned_created);
             this.ticket_details.Controls.Add(this.pinned_description);
             this.ticket_details.Controls.Add(this.pinned_priority);
-            this.ticket_details.Controls.Add(this.label1);
+            this.ticket_details.Controls.Add(this.pinned_details_state);
             this.ticket_details.Location = new System.Drawing.Point(4, 22);
             this.ticket_details.Name = "ticket_details";
             this.ticket_details.Padding = new System.Windows.Forms.Padding(3);
@@ -97,6 +97,23 @@
             this.ticket_details.TabIndex = 0;
             this.ticket_details.Text = "Details";
             this.ticket_details.UseVisualStyleBackColor = true;
+            // 
+            // type
+            // 
+            this.type.Location = new System.Drawing.Point(95, 47);
+            this.type.Name = "type";
+            this.type.Size = new System.Drawing.Size(163, 13);
+            this.type.TabIndex = 12;
+            // 
+            // pinned_type
+            // 
+            this.pinned_type.AutoSize = true;
+            this.pinned_type.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pinned_type.Location = new System.Drawing.Point(8, 47);
+            this.pinned_type.Name = "pinned_type";
+            this.pinned_type.Size = new System.Drawing.Size(35, 13);
+            this.pinned_type.TabIndex = 11;
+            this.pinned_type.Text = "Type";
             // 
             // closed
             // 
@@ -173,15 +190,15 @@
             this.pinned_priority.TabIndex = 2;
             this.pinned_priority.Text = "Priority";
             // 
-            // label1
+            // pinned_details_state
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(8, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "State";
+            this.pinned_details_state.AutoSize = true;
+            this.pinned_details_state.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pinned_details_state.Location = new System.Drawing.Point(8, 3);
+            this.pinned_details_state.Name = "pinned_details_state";
+            this.pinned_details_state.Size = new System.Drawing.Size(37, 13);
+            this.pinned_details_state.TabIndex = 0;
+            this.pinned_details_state.Text = "State";
             // 
             // ticket_requests
             // 
@@ -231,10 +248,10 @@
             // ticket_actions
             // 
             this.ticket_actions.Controls.Add(this.state_list);
-            this.ticket_actions.Controls.Add(this.label4);
+            this.ticket_actions.Controls.Add(this.pinned_state);
             this.ticket_actions.Controls.Add(this.step_order);
-            this.ticket_actions.Controls.Add(this.label3);
-            this.ticket_actions.Controls.Add(this.subimt_action);
+            this.ticket_actions.Controls.Add(this.pinned_step);
+            this.ticket_actions.Controls.Add(this.submit_action);
             this.ticket_actions.Controls.Add(this.note);
             this.ticket_actions.Controls.Add(this.pinned_note);
             this.ticket_actions.Controls.Add(this.export);
@@ -251,23 +268,22 @@
             // 
             this.state_list.FormattingEnabled = true;
             this.state_list.Items.AddRange(new object[] {
-            "Waiting",
             "In Progress",
             "Closed"});
             this.state_list.Location = new System.Drawing.Point(48, 103);
             this.state_list.Name = "state_list";
-            this.state_list.Size = new System.Drawing.Size(134, 43);
+            this.state_list.Size = new System.Drawing.Size(134, 30);
             this.state_list.TabIndex = 20;
             // 
-            // label4
+            // pinned_state
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(5, 103);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 13);
-            this.label4.TabIndex = 19;
-            this.label4.Text = "State";
+            this.pinned_state.AutoSize = true;
+            this.pinned_state.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pinned_state.Location = new System.Drawing.Point(5, 103);
+            this.pinned_state.Name = "pinned_state";
+            this.pinned_state.Size = new System.Drawing.Size(37, 13);
+            this.pinned_state.TabIndex = 19;
+            this.pinned_state.Text = "State";
             // 
             // step_order
             // 
@@ -291,25 +307,25 @@
             0,
             0});
             // 
-            // label3
+            // pinned_step
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(5, 80);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 13);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Step";
+            this.pinned_step.AutoSize = true;
+            this.pinned_step.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pinned_step.Location = new System.Drawing.Point(5, 80);
+            this.pinned_step.Name = "pinned_step";
+            this.pinned_step.Size = new System.Drawing.Size(33, 13);
+            this.pinned_step.TabIndex = 17;
+            this.pinned_step.Text = "Step";
             // 
-            // subimt_action
+            // submit_action
             // 
-            this.subimt_action.Location = new System.Drawing.Point(193, 182);
-            this.subimt_action.Name = "subimt_action";
-            this.subimt_action.Size = new System.Drawing.Size(75, 35);
-            this.subimt_action.TabIndex = 1;
-            this.subimt_action.Text = "Submit";
-            this.subimt_action.UseVisualStyleBackColor = true;
-            this.subimt_action.Click += new System.EventHandler(this.subimt_action_Click);
+            this.submit_action.Location = new System.Drawing.Point(193, 182);
+            this.submit_action.Name = "submit_action";
+            this.submit_action.Size = new System.Drawing.Size(75, 35);
+            this.submit_action.TabIndex = 1;
+            this.submit_action.Text = "Submit";
+            this.submit_action.UseVisualStyleBackColor = true;
+            this.submit_action.Click += new System.EventHandler(this.submit_action_Click);
             // 
             // note
             // 
@@ -349,23 +365,6 @@
             this.remove.UseVisualStyleBackColor = true;
             this.remove.Click += new System.EventHandler(this.remove_Click);
             // 
-            // pinned_type
-            // 
-            this.pinned_type.AutoSize = true;
-            this.pinned_type.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pinned_type.Location = new System.Drawing.Point(8, 47);
-            this.pinned_type.Name = "pinned_type";
-            this.pinned_type.Size = new System.Drawing.Size(35, 13);
-            this.pinned_type.TabIndex = 11;
-            this.pinned_type.Text = "Type";
-            // 
-            // type
-            // 
-            this.type.Location = new System.Drawing.Point(95, 47);
-            this.type.Name = "type";
-            this.type.Size = new System.Drawing.Size(163, 13);
-            this.type.TabIndex = 12;
-            // 
             // TicketDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -390,7 +389,7 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage ticket_details;
         private System.Windows.Forms.TabPage ticket_actions;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label pinned_details_state;
         private System.Windows.Forms.Label pinned_priority;
         private System.Windows.Forms.Label pinned_description;
         private System.Windows.Forms.Label pinned_created;
@@ -410,10 +409,10 @@
         private System.Windows.Forms.Button export;
         private System.Windows.Forms.TextBox note;
         private System.Windows.Forms.Label pinned_note;
-        private System.Windows.Forms.Button subimt_action;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button submit_action;
+        private System.Windows.Forms.Label pinned_step;
         private System.Windows.Forms.NumericUpDown step_order;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label pinned_state;
         private System.Windows.Forms.ListBox state_list;
         private System.Windows.Forms.Label type;
         private System.Windows.Forms.Label pinned_type;
