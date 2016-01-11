@@ -5,18 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace L_IckEtS.command
+namespace L_IckEtS.engine.command
 {
-    class ListTickets : ICommand
+    class CreateAction : ICommand
     {
-
-        private Boolean nonClosed;
-
-        public ListTickets(Boolean nonClosed)
-        {
-            this.nonClosed = nonClosed;
-        }
-
         public void execute()
         {
 

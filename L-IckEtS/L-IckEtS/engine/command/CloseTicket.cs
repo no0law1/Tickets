@@ -1,17 +1,17 @@
-﻿using System;
+﻿using L_IckEtS.command.common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace L_IckEtS.command.common
+namespace L_IckEtS.engine.command
 {
-    abstract class Command : ICommand
+    class CloseTicket : ICommand
     {
-
         public void execute()
         {
-            throw new NotImplementedException();
+
         }
     }
 }
