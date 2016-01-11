@@ -40,8 +40,8 @@ namespace L_IckEtS_EF
                 {
                     tickets = new TicketSystemDBQueryable().getAllTicketsTable(db);
                 }
+                setUpListView(tickets);
             }
-            setUpListView(tickets);
         }
 
         private void setUpListView(IEnumerable<ticket> table)

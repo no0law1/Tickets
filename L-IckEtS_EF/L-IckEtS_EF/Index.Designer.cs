@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.techs = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
             this.tickets = new System.Windows.Forms.TabPage();
             this.details_ticket = new System.Windows.Forms.Button();
             this.ticket_list = new System.Windows.Forms.ListView();
@@ -41,30 +39,9 @@
             this.admin = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.show_non_closed = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.techs.SuspendLayout();
             this.tickets.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // techs
-            // 
-            this.techs.Controls.Add(this.button1);
-            this.techs.Location = new System.Drawing.Point(4, 22);
-            this.techs.Name = "techs";
-            this.techs.Padding = new System.Windows.Forms.Padding(3);
-            this.techs.Size = new System.Drawing.Size(418, 328);
-            this.techs.TabIndex = 1;
-            this.techs.Text = "Administration";
-            this.techs.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(6, 6);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(406, 63);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Assign an Admin to a Ticket";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // tickets
             // 
@@ -152,7 +129,6 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tickets);
-            this.tabControl1.Controls.Add(this.techs);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -169,7 +145,6 @@
             this.MaximizeBox = false;
             this.Name = "Index";
             this.Text = "Index";
-            this.techs.ResumeLayout(false);
             this.tickets.ResumeLayout(false);
             this.tickets.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -179,7 +154,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TabPage techs;
         private System.Windows.Forms.TabPage tickets;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.ListView ticket_list;
@@ -191,7 +165,6 @@
         private System.Windows.Forms.ColumnHeader priority;
         private System.Windows.Forms.ColumnHeader admin;
         private System.Windows.Forms.Button details_ticket;
-        private System.Windows.Forms.Button button1;
 
     }
 }
