@@ -49,10 +49,16 @@
             this.request_response_date = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.request_admin_id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ticket_actions = new System.Windows.Forms.TabPage();
+            this.action_type = new System.Windows.Forms.Label();
+            this.pinned_action_type = new System.Windows.Forms.Label();
+            this.actions_list = new System.Windows.Forms.ListView();
+            this.action_note = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.action_admin = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.action_order = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.action_ended = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ticket_resolve = new System.Windows.Forms.TabPage();
             this.state_list = new System.Windows.Forms.ListBox();
             this.pinned_state = new System.Windows.Forms.Label();
-            this.step_order = new System.Windows.Forms.NumericUpDown();
-            this.pinned_step = new System.Windows.Forms.Label();
             this.submit_action = new System.Windows.Forms.Button();
             this.note = new System.Windows.Forms.TextBox();
             this.pinned_note = new System.Windows.Forms.Label();
@@ -62,7 +68,7 @@
             this.ticket_details.SuspendLayout();
             this.ticket_requests.SuspendLayout();
             this.ticket_actions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.step_order)).BeginInit();
+            this.ticket_resolve.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -70,6 +76,7 @@
             this.tabControl1.Controls.Add(this.ticket_details);
             this.tabControl1.Controls.Add(this.ticket_requests);
             this.tabControl1.Controls.Add(this.ticket_actions);
+            this.tabControl1.Controls.Add(this.ticket_resolve);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -218,6 +225,7 @@
             this.request_created,
             this.request_response_date,
             this.request_admin_id});
+            this.info_requests.FullRowSelect = true;
             this.info_requests.Location = new System.Drawing.Point(8, 6);
             this.info_requests.Name = "info_requests";
             this.info_requests.Size = new System.Drawing.Size(260, 211);
@@ -247,22 +255,83 @@
             // 
             // ticket_actions
             // 
-            this.ticket_actions.Controls.Add(this.state_list);
-            this.ticket_actions.Controls.Add(this.pinned_state);
-            this.ticket_actions.Controls.Add(this.step_order);
-            this.ticket_actions.Controls.Add(this.pinned_step);
-            this.ticket_actions.Controls.Add(this.submit_action);
-            this.ticket_actions.Controls.Add(this.note);
-            this.ticket_actions.Controls.Add(this.pinned_note);
-            this.ticket_actions.Controls.Add(this.export);
-            this.ticket_actions.Controls.Add(this.remove);
+            this.ticket_actions.Controls.Add(this.action_type);
+            this.ticket_actions.Controls.Add(this.pinned_action_type);
+            this.ticket_actions.Controls.Add(this.actions_list);
             this.ticket_actions.Location = new System.Drawing.Point(4, 22);
             this.ticket_actions.Name = "ticket_actions";
             this.ticket_actions.Padding = new System.Windows.Forms.Padding(3);
             this.ticket_actions.Size = new System.Drawing.Size(276, 223);
-            this.ticket_actions.TabIndex = 1;
-            this.ticket_actions.Text = "Resolve";
+            this.ticket_actions.TabIndex = 3;
+            this.ticket_actions.Text = "Actions";
             this.ticket_actions.UseVisualStyleBackColor = true;
+            // 
+            // action_type
+            // 
+            this.action_type.AutoSize = true;
+            this.action_type.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.action_type.Location = new System.Drawing.Point(58, 13);
+            this.action_type.Name = "action_type";
+            this.action_type.Size = new System.Drawing.Size(0, 16);
+            this.action_type.TabIndex = 2;
+            // 
+            // pinned_action_type
+            // 
+            this.pinned_action_type.AutoSize = true;
+            this.pinned_action_type.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pinned_action_type.Location = new System.Drawing.Point(8, 13);
+            this.pinned_action_type.Name = "pinned_action_type";
+            this.pinned_action_type.Size = new System.Drawing.Size(48, 16);
+            this.pinned_action_type.TabIndex = 1;
+            this.pinned_action_type.Text = "Type:";
+            // 
+            // actions_list
+            // 
+            this.actions_list.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.action_note,
+            this.action_admin,
+            this.action_order,
+            this.action_ended});
+            this.actions_list.FullRowSelect = true;
+            this.actions_list.Location = new System.Drawing.Point(8, 43);
+            this.actions_list.Name = "actions_list";
+            this.actions_list.Size = new System.Drawing.Size(260, 174);
+            this.actions_list.TabIndex = 0;
+            this.actions_list.UseCompatibleStateImageBehavior = false;
+            this.actions_list.View = System.Windows.Forms.View.Details;
+            // 
+            // action_note
+            // 
+            this.action_note.Text = "Note";
+            // 
+            // action_admin
+            // 
+            this.action_admin.Text = "Admin";
+            // 
+            // action_order
+            // 
+            this.action_order.Text = "Order";
+            // 
+            // action_ended
+            // 
+            this.action_ended.Text = "Finished";
+            // 
+            // ticket_resolve
+            // 
+            this.ticket_resolve.Controls.Add(this.state_list);
+            this.ticket_resolve.Controls.Add(this.pinned_state);
+            this.ticket_resolve.Controls.Add(this.submit_action);
+            this.ticket_resolve.Controls.Add(this.note);
+            this.ticket_resolve.Controls.Add(this.pinned_note);
+            this.ticket_resolve.Controls.Add(this.export);
+            this.ticket_resolve.Controls.Add(this.remove);
+            this.ticket_resolve.Location = new System.Drawing.Point(4, 22);
+            this.ticket_resolve.Name = "ticket_resolve";
+            this.ticket_resolve.Padding = new System.Windows.Forms.Padding(3);
+            this.ticket_resolve.Size = new System.Drawing.Size(276, 223);
+            this.ticket_resolve.TabIndex = 1;
+            this.ticket_resolve.Text = "Resolve";
+            this.ticket_resolve.UseVisualStyleBackColor = true;
             // 
             // state_list
             // 
@@ -284,38 +353,6 @@
             this.pinned_state.Size = new System.Drawing.Size(37, 13);
             this.pinned_state.TabIndex = 19;
             this.pinned_state.Text = "State";
-            // 
-            // step_order
-            // 
-            this.step_order.Location = new System.Drawing.Point(48, 80);
-            this.step_order.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.step_order.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.step_order.Name = "step_order";
-            this.step_order.Size = new System.Drawing.Size(134, 20);
-            this.step_order.TabIndex = 1;
-            this.step_order.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // pinned_step
-            // 
-            this.pinned_step.AutoSize = true;
-            this.pinned_step.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pinned_step.Location = new System.Drawing.Point(5, 80);
-            this.pinned_step.Name = "pinned_step";
-            this.pinned_step.Size = new System.Drawing.Size(33, 13);
-            this.pinned_step.TabIndex = 17;
-            this.pinned_step.Text = "Step";
             // 
             // submit_action
             // 
@@ -379,7 +416,8 @@
             this.ticket_requests.ResumeLayout(false);
             this.ticket_actions.ResumeLayout(false);
             this.ticket_actions.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.step_order)).EndInit();
+            this.ticket_resolve.ResumeLayout(false);
+            this.ticket_resolve.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -388,7 +426,7 @@
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage ticket_details;
-        private System.Windows.Forms.TabPage ticket_actions;
+        private System.Windows.Forms.TabPage ticket_resolve;
         private System.Windows.Forms.Label pinned_details_state;
         private System.Windows.Forms.Label pinned_priority;
         private System.Windows.Forms.Label pinned_description;
@@ -410,11 +448,17 @@
         private System.Windows.Forms.TextBox note;
         private System.Windows.Forms.Label pinned_note;
         private System.Windows.Forms.Button submit_action;
-        private System.Windows.Forms.Label pinned_step;
-        private System.Windows.Forms.NumericUpDown step_order;
         private System.Windows.Forms.Label pinned_state;
         private System.Windows.Forms.ListBox state_list;
         private System.Windows.Forms.Label type;
         private System.Windows.Forms.Label pinned_type;
+        private System.Windows.Forms.TabPage ticket_actions;
+        private System.Windows.Forms.Label action_type;
+        private System.Windows.Forms.Label pinned_action_type;
+        private System.Windows.Forms.ListView actions_list;
+        private System.Windows.Forms.ColumnHeader action_note;
+        private System.Windows.Forms.ColumnHeader action_admin;
+        private System.Windows.Forms.ColumnHeader action_order;
+        private System.Windows.Forms.ColumnHeader action_ended;
     }
 }

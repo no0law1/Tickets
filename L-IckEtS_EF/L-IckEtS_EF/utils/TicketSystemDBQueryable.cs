@@ -52,5 +52,10 @@ namespace L_IckEtS_EF.utils
         {
             return (from r in db.request where r.ticket_id == code select r).AsEnumerable();
         }
+
+        internal IEnumerable<action> getTicketActions(ticket_systemEntities db, int code)
+        {
+            return db.action.SqlQuery("select * from action where ticket_id=@code", new SqlParameter("@code", code));
+        }
     }
 }

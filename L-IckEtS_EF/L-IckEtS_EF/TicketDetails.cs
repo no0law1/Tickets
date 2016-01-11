@@ -29,13 +29,13 @@ namespace L_IckEtS_EF
 
         private ticket t;
 
-        public TicketDetails(ticket t, IEnumerable<request> r)
+        public TicketDetails(ticket t, IEnumerable<request> r, IEnumerable<action> actions)
         {
             InitializeComponent();
             this.t = t;
-            UpdateUI(t, r);
+            UpdateUI(t, r, actions);
         }
-        private void UpdateUI(ticket t, IEnumerable<request> r)
+        private void UpdateUI(ticket t, IEnumerable<request> r, IEnumerable<action> actions)
         {
             // DETAILS
             this.Text = "Ticket " + this.t.code;
@@ -55,10 +55,19 @@ namespace L_IckEtS_EF
                 info_requests.Items.Add(listViewItem);
             }
 
+            // ACTIONS
+            action_type.Text = t.type == null ? "" : t.type.NAME;
+            foreach (var action in actions)
+            {
+                string[] row = { action.note, action.admin_id.ToString(), action.step_order.ToString(), action.ended_at==null ? "":true.ToString() };
+                var listViewItem = new ListViewItem(row);
+                actions_list.Items.Add(listViewItem);
+            }
+
             // RESOLVE
             if (!t.STATE.Equals("In Progress"))
             {
-                this.tabControl1.TabPages.Remove(ticket_actions);
+                this.tabControl1.TabPages.Remove(ticket_resolve);
             }
             else
             {
@@ -126,11 +135,12 @@ namespace L_IckEtS_EF
             {
                 if (state_list.SelectedItem.ToString().Equals(t.STATE))
                 {
-                    db.CreateAction(note.Text, t.code, admin_id, (int)step_order.Value, t.id_type);
+                    int order = actions_list.Items.Count + 1;
+                    db.CreateAction(note.Text, t.code, admin_id, order, t.id_type);
                 }
                 else
                 {
-                    if (db.action.SqlQuery("select * from action where ticket_id = @id", new SqlParameter("@id", t.code)).Any())
+                    if (db.action.SqlQuery("SELECT * FROM action WHERE ticket_id = @id", new SqlParameter("@id", t.code)).Any())
                     {
                         if (t.admin_id == admin_id)
                         {
