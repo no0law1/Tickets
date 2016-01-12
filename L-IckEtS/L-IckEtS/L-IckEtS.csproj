@@ -52,8 +52,12 @@
       <DependentUpon>AskAdminID.cs</DependentUpon>
     </Compile>
     <Compile Include="data\database\Connection.cs" />
+    <Compile Include="data\entity\ActionDAO.cs" />
+    <Compile Include="data\entity\AdminDAO.cs" />
+    <Compile Include="data\entity\ClientDAO.cs" />
     <Compile Include="data\entity\RequestDAO.cs" />
     <Compile Include="data\entity\TicketDAO.cs" />
+    <Compile Include="data\entity\TypeDAO.cs" />
     <Compile Include="engine\command\CloseTicket.cs" />
     <Compile Include="engine\command\common\ICommand.cs" />
     <Compile Include="engine\command\CreateAction.cs" />
@@ -66,8 +70,12 @@
     <Compile Include="Index.Designer.cs">
       <DependentUpon>Index.cs</DependentUpon>
     </Compile>
+    <Compile Include="model\Action.cs" />
+    <Compile Include="model\Admin.cs" />
+    <Compile Include="model\Client.cs" />
     <Compile Include="model\Request.cs" />
     <Compile Include="model\Ticket.cs" />
+    <Compile Include="model\Type.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TicketDetails.cs">
