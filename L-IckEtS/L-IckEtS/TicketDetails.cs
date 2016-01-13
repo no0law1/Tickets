@@ -7,6 +7,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace L_IckEtS_EF
 {
@@ -26,19 +28,22 @@ namespace L_IckEtS_EF
 
         private L_IckEtS.model.Type ticketType;
 
+        private Client client;
+
         private Admin admin;
 
         private IEnumerable<Request> requests;
 
         private IEnumerable<L_IckEtS.model.Action> actions;
 
-        public TicketDetails(Ticket ticket, L_IckEtS.model.Type type,
+        public TicketDetails(Ticket ticket, L_IckEtS.model.Type type, Client client,
                                 Admin admin, IEnumerable<Request> requests,
                                 IEnumerable<L_IckEtS.model.Action> actions)
         {
             InitializeComponent();
             this.ticket = ticket;
             this.ticketType = type;
+            this.client = client;
             this.admin = admin;
             this.requests = requests;
             this.actions = actions;
@@ -86,32 +91,20 @@ namespace L_IckEtS_EF
 
         private void export_Click(object sender, EventArgs e)
         {
-            //client c = null;
-            //administrator admin = null;
-            //IEnumerable<action> actions = null;
-            //using (ticket_systemEntities db = new ticket_systemEntities())
-            //{
-            //    c = new TicketSystemDBQueryable().getClientById(db, t.client_id);
-            //    admin = new TicketSystemDBQueryable().getAdminById(db, t.admin_id);
-            //    if (t.id_type != null)
-            //        tp = new TicketSystemDBQueryable().getTypeById(db, t.id_type);
-            //    actions = new TicketSystemDBQueryable().getActionsByTicketId(db, t.code);
+            XElement ticket_xml = XMLUtils.ticketToXml(ticket);
+            ticket_xml.Add(XMLUtils.ownerToXml(client));
+            ticket_xml.Add(XMLUtils.supervisorToXml(admin));
+            ticket_xml.Add(new XElement("description", ticket.description));
+            ticket_xml.Add(XMLUtils.typeToXml(ticketType));
+            ticket_xml.Add(XMLUtils.actionsToXml(actions));
 
-            //    XElement ticket_xml = XMLUtils.ticketToXml(t);
-            //    ticket_xml.Add(XMLUtils.ownerToXml(c));
-            //    ticket_xml.Add(XMLUtils.supervisorToXml(admin));
-            //    ticket_xml.Add(new XElement("description", t.description));
-            //    ticket_xml.Add(XMLUtils.typeToXml(tp));
-            //    ticket_xml.Add(XMLUtils.actionsToXml(actions));
+            XDocument final = new XDocument(new XDeclaration("1.0", "utf-8", null), ticket_xml);
 
-            //    XDocument final = new XDocument(new XDeclaration("1.0", "utf-8", null), ticket_xml);
-
-            //    //StringWriter returns encoding utf-16. No worries :)
-            //    var wr = new StringWriter();
-            //    //TODO: Save into file
-            //    final.Save(wr);
-            //    Console.Write(wr.GetStringBuilder().ToString());
-            //}
+            //StringWriter returns encoding utf-16. No worries :)
+            var wr = new StringWriter();
+            //TODO: Save into file
+            final.Save(wr);
+            Console.Write(wr.GetStringBuilder().ToString());
         }
 
         private void remove_Click(object sender, EventArgs e)
