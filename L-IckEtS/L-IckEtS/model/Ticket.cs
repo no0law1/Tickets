@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace L_IckEtS.model
 {
-    class Ticket
+    public class Ticket
     {
         public int code { get; set; }
         public string STATE { get; set; }

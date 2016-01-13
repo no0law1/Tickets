@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace L_IckEtS.model
 {
-    class Action
+    public class Action
     {
     }
 }

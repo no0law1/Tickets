@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace L_IckEtS.database
 {
-    class Connection
+    class DB
     {
         private System.Data.SqlClient.SqlConnectionStringBuilder builder;
 
         private SqlConnection connection;
 
-        public Connection(string data_source, string initial_catalog, Boolean integrated_security)
+        public DB(string data_source, string initial_catalog, Boolean integrated_security)
         {
             builder = new System.Data.SqlClient.SqlConnectionStringBuilder();
             builder["Data Source"] = data_source;

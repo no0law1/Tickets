@@ -51,7 +51,8 @@
     <Compile Include="AskAdminID.Designer.cs">
       <DependentUpon>AskAdminID.cs</DependentUpon>
     </Compile>
-    <Compile Include="data\database\Connection.cs" />
+    <Compile Include="data\database\DB.cs" />
+    <Compile Include="data\database\utils\SqlDataReaderUtils.cs" />
     <Compile Include="data\entity\ActionDAO.cs" />
     <Compile Include="data\entity\AdminDAO.cs" />
     <Compile Include="data\entity\ClientDAO.cs" />
