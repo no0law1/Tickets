@@ -1,9 +1,11 @@
-﻿
+﻿using L_IckEtS.model;
+using System.Xml;
+
 namespace L_IckEtS_EF.utils
 {
     class XMLUtils
     {
-        //static internal XElement ticketToXml(ticket t)
+        //static internal XmlElement ticketToXml(Ticket t)
         //{
         //    return new XElement("ticket",
         //            new XAttribute("type", t.id_type),
@@ -11,7 +13,7 @@ namespace L_IckEtS_EF.utils
         //            new XAttribute("status", t.STATE));
         //}
 
-        //static internal XElement ownerToXml(client c)
+        //static internal XElement ownerToXml(Client c)
         //{
         //    return new XElement("owner",
         //            new XAttribute("ownerID", c.id),
@@ -20,7 +22,7 @@ namespace L_IckEtS_EF.utils
         //            c.NAME);
         //}
 
-        //static internal XElement supervisorToXml(administrator admin)
+        //static internal XElement supervisorToXml(Admin admin)
         //{
         //    return new XElement("supervisor",
         //            new XAttribute("technicianID", admin.id),

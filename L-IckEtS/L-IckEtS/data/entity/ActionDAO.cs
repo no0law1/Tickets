@@ -1,4 +1,5 @@
-﻿using L_IckEtS.database;
+﻿using L_IckEtS.data.database.utils;
+using L_IckEtS.database;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -9,8 +10,15 @@ namespace L_IckEtS.data.entity
     {
         private static model.Action createAction(SqlDataReader data)
         {
-            //TODO: createAction
-            return new model.Action();
+            DateTime created_at = SqlDataReaderUtils.GetValue<DateTime>(data, 0);
+            Nullable<DateTime> ended_at = SqlDataReaderUtils.GetValue<DateTime>(data, 1);
+            string note = SqlDataReaderUtils.GetValue<String>(data, 2);
+            int ticket_id = SqlDataReaderUtils.GetValue<int>(data, 3);
+            int admin_id = SqlDataReaderUtils.GetValue<int>(data, 4);
+            int step_order = SqlDataReaderUtils.GetValue<int>(data, 5);
+            int id_type = SqlDataReaderUtils.GetValue<int>(data, 6);
+
+            return new model.Action(created_at, ended_at, note, ticket_id, admin_id, step_order, id_type);
         }
 
         public static IEnumerable<model.Action> getTicketActions(DB connection, int ticketID)

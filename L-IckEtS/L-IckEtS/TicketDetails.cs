@@ -1,4 +1,5 @@
-﻿using L_IckEtS.model;
+﻿using L_IckEtS.data.entity;
+using L_IckEtS.model;
 using L_IckEtS_EF.utils;
 using System;
 using System.Collections.Generic;
@@ -23,14 +24,22 @@ namespace L_IckEtS_EF
 
         private Ticket ticket;
 
+        private L_IckEtS.model.Type ticketType;
+
+        private Admin admin;
+
         private IEnumerable<Request> requests;
 
         private IEnumerable<L_IckEtS.model.Action> actions;
 
-        public TicketDetails(Ticket ticket, IEnumerable<Request> requests, IEnumerable<L_IckEtS.model.Action> actions)
+        public TicketDetails(Ticket ticket, L_IckEtS.model.Type type,
+                                Admin admin, IEnumerable<Request> requests,
+                                IEnumerable<L_IckEtS.model.Action> actions)
         {
             InitializeComponent();
             this.ticket = ticket;
+            this.ticketType = type;
+            this.admin = admin;
             this.requests = requests;
             this.actions = actions;
             UpdateUI();
@@ -41,7 +50,7 @@ namespace L_IckEtS_EF
             this.Text = "Ticket " + ticket.code;
             state.Text = ticket.STATE;
             priority.Text = ticket.priority;
-            //type.Text = ticket.type == null ? "" : ticket.type.NAME;
+            type.Text = ticketType == null ? "" : ticketType.name;
             description.Text = ticket.description;
             created.Text = ticket.created_at.ToShortDateString();
             closed.Text = ticket.closed_at.HasValue ? ticket.closed_at.GetValueOrDefault().ToShortDateString() : "";
@@ -56,13 +65,13 @@ namespace L_IckEtS_EF
             }
 
             // ACTIONS
-            //action_type.Text = ticket.type == null ? "" : ticket.type.NAME;
-            //foreach (Action action in actions)
-            //{
-            //    string[] row = { action.note, action.admin_id.ToString(), action.step_order.ToString(), action.ended_at == null ? "" : true.ToString() };
-            //    var listViewItem = new ListViewItem(row);
-            //    actions_list.Items.Add(listViewItem);
-            //}
+            action_type.Text = ticketType == null ? "" : ticketType.name;
+            foreach (L_IckEtS.model.Action action in actions)
+            {
+                string[] row = { action.note, action.admin_id.ToString(), action.step_order.ToString(), action.ended_at == null ? "" : true.ToString() };
+                var listViewItem = new ListViewItem(row);
+                actions_list.Items.Add(listViewItem);
+            }
 
             // RESOLVE
             if (!ticket.STATE.Equals("In Progress"))
@@ -79,7 +88,6 @@ namespace L_IckEtS_EF
         {
             //client c = null;
             //administrator admin = null;
-            //type tp = null;
             //IEnumerable<action> actions = null;
             //using (ticket_systemEntities db = new ticket_systemEntities())
             //{
@@ -108,56 +116,48 @@ namespace L_IckEtS_EF
 
         private void remove_Click(object sender, EventArgs e)
         {
-            //using (ticket_systemEntities db = new ticket_systemEntities())
-            //{
-            //    ObjectParameter count = new ObjectParameter("res", SqlDbType.Int);
-            //    db.RemoveTicket(this.t.code, count);
-            //    if (!count.Value.Equals(0))
-            //    {
-            //        MessageBox.Show("Ticket successfully removed");
-            //        OnTicketChanged(EventArgs.Empty);
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Error");
-            //    }
-            //}
-            //Close();
+            if (TicketDAO.removeTicket(null, ticket.code))
+            {
+                MessageBox.Show("Ticket successfully removed");
+                OnTicketChanged(EventArgs.Empty);
+            }
+            else
+            {
+                MessageBox.Show("Error");
+            }
+            Close();
         }
 
         private void submit_action_Click(object sender, EventArgs e)
         {
-            //AskAdminID admin = new AskAdminID();
-            //admin.ShowDialog();
+            AskAdminID admin = new AskAdminID();
+            admin.ShowDialog();
 
-            //int admin_id = admin.id;
-            //using (ticket_systemEntities db = new ticket_systemEntities())
-            //{
-            //    if (state_list.SelectedItem.ToString().Equals(t.STATE))
-            //    {
-            //        int order = actions_list.Items.Count + 1;
-            //        db.CreateAction(note.Text, t.code, admin_id, order, t.id_type);
-            //    }
-            //    else
-            //    {
-            //        if (db.action.SqlQuery("SELECT * FROM action WHERE ticket_id = @id", new SqlParameter("@id", t.code)).Any())
-            //        {
-            //            if (t.admin_id == admin_id)
-            //            {
-            //                db.CloseTicket(t.code);
-            //                OnTicketChanged(EventArgs.Empty);
-            //            }
-            //            else
-            //            {
-            //                MessageBox.Show("You cannot close this ticket");
-            //            }
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show("This ticket has no Actions");
-            //        }
-            //    }
-            //}
+            int admin_id = admin.id;
+            if (state_list.SelectedItem.ToString().Equals(ticket.STATE))
+            {
+                int order = actions_list.Items.Count + 1;
+            //                db.CreateAction(note.Text, t.code, admin_id, order, t.id_type);
+            }
+            else
+            {
+            if (actions != null)
+            {
+                    if (ticket.admin_id == admin_id)
+                    {
+                        //db.CloseTicket(t.code);
+                        OnTicketChanged(EventArgs.Empty);
+                    }
+                    else
+                    {
+                        MessageBox.Show("You cannot close this ticket");
+                    }
+            }
+            else
+            {
+                MessageBox.Show("This ticket has no Actions");
+            }
+        }
         }
     }
 }

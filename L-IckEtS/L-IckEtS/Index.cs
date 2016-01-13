@@ -76,8 +76,12 @@ namespace L_IckEtS_EF
             {
                 int code = int.Parse(ticket_list.SelectedItems[0].Text);
                 var ticket = TicketDAO.getTicketById(database, code);
+                var type = ticket.id_type != null ? TypeDAO.getType(database, ticket.id_type.Value):null;
+                var admin = AdminDAO.getAdminByID(database, ticket.admin_id);
                 var info_requests = RequestDAO.getTicketRequests(database, code);
-                TicketDetails t = new TicketDetails(ticket, info_requests, null);
+                var actions = ActionDAO.getTicketActions(database, code);
+
+                TicketDetails t = new TicketDetails(ticket, type, admin, info_requests, actions);
                 t.Changed += new TicketDetails.RemovedEventHandler(TicketRemoved);
                 t.Show();
             }

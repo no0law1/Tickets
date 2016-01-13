@@ -82,5 +82,14 @@ namespace L_IckEtS.data.entity
                 }
             }
         }
+
+        public static Boolean removeTicket(DB connection, int code)
+        {
+            using (SqlConnection db = connection.getConnection())
+            {
+                //TODO: Use stored procedure
+                return false;
+            }
+        }
     }
 }
