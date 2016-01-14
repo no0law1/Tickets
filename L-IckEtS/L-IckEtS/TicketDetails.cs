@@ -140,8 +140,7 @@ namespace L_IckEtS_EF
             }
             else
             {
-                //FIXME: always gives me no actions
-                if (actions_list.Items.Count<1)
+                if (actions_list.Items.Count>0)
                 {
                         if (ticket.admin_id == admin_id)
                         {
