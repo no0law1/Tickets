@@ -140,23 +140,24 @@ namespace L_IckEtS_EF
             }
             else
             {
-            if (actions != null)
-            {
-                    if (ticket.admin_id == admin_id)
-                    {
-                        //db.CloseTicket(t.code);
-                        OnTicketChanged(EventArgs.Empty);
-                    }
-                    else
-                    {
-                        MessageBox.Show("You cannot close this ticket");
-                    }
+                //FIXME: always gives me no actions
+                if (actions_list.Items.Count<1)
+                {
+                        if (ticket.admin_id == admin_id)
+                        {
+                            TicketDAO.closeTicket(database, ticket.code);
+                            OnTicketChanged(EventArgs.Empty);
+                        }
+                        else
+                        {
+                            MessageBox.Show("You cannot close this ticket");
+                        }
+                }
+                else
+                {
+                    MessageBox.Show("This ticket has no Actions");
+                }
             }
-            else
-            {
-                MessageBox.Show("This ticket has no Actions");
-            }
-        }
         }
     }
 }

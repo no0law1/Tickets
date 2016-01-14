@@ -99,5 +99,20 @@ namespace L_IckEtS.data.entity
                 }
             }
         }
+
+        public static Boolean closeTicket(DB connection, int code)
+        {
+            using (SqlConnection db = connection.getConnection())
+            {
+                using (SqlCommand command = new SqlCommand("CloseTicket", db))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.Add("@code", SqlDbType.Int).Value = code;
+                    db.Open();
+
+                    return command.ExecuteNonQuery() < 1 ? false : true;
+                }
+            }
+        }
     }
 }
