@@ -8,6 +8,12 @@ namespace L_IckEtS.model
 {
     public class Action
     {
+        private string p1;
+        private int p2;
+        private int admin_id1;
+        private int order;
+        private int? nullable;
+
         public DateTime created_at {get; set;}
 		public Nullable<DateTime> ended_at {get; set;}
 
@@ -32,6 +38,19 @@ namespace L_IckEtS.model
             this.admin_id = admin_id;
             this.step_order = step_order;
             this.id_type = id_type;
+        }
+
+        public Action(string note,
+            int ticket_id,
+            int admin_id,
+            int step_order,
+            int? id_type)
+        {
+            this.note = note;
+            this.ticket_id = ticket_id;
+            this.admin_id = admin_id;
+            this.step_order = step_order;
+            this.id_type = (int)id_type;
         }
     }
 }

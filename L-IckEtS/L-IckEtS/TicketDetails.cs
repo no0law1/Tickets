@@ -1,4 +1,5 @@
 ﻿using L_IckEtS.data.entity;
+using L_IckEtS.database;
 using L_IckEtS.model;
 using L_IckEtS_EF.utils;
 using System;
@@ -24,6 +25,8 @@ namespace L_IckEtS_EF
                 Changed(this, e);
         }
 
+        private DB database;
+
         private Ticket ticket;
 
         private L_IckEtS.model.Type ticketType;
@@ -36,11 +39,12 @@ namespace L_IckEtS_EF
 
         private IEnumerable<L_IckEtS.model.Action> actions;
 
-        public TicketDetails(Ticket ticket, L_IckEtS.model.Type type, Client client,
+        public TicketDetails(DB database, Ticket ticket, L_IckEtS.model.Type type, Client client,
                                 Admin admin, IEnumerable<Request> requests,
                                 IEnumerable<L_IckEtS.model.Action> actions)
         {
             InitializeComponent();
+            this.database = database;
             this.ticket = ticket;
             this.ticketType = type;
             this.client = client;
@@ -109,7 +113,7 @@ namespace L_IckEtS_EF
 
         private void remove_Click(object sender, EventArgs e)
         {
-            if (TicketDAO.removeTicket(null, ticket.code))
+            if (TicketDAO.removeTicket(database, ticket.code))
             {
                 MessageBox.Show("Ticket successfully removed");
                 OnTicketChanged(EventArgs.Empty);
@@ -130,7 +134,9 @@ namespace L_IckEtS_EF
             if (state_list.SelectedItem.ToString().Equals(ticket.STATE))
             {
                 int order = actions_list.Items.Count + 1;
-            //                db.CreateAction(note.Text, t.code, admin_id, order, t.id_type);
+                L_IckEtS.model.Action action = new L_IckEtS.model.Action(note.Text, ticket.code, admin_id, order, ticket.id_type);
+                ActionDAO.insertAction(database, action);
+                //TODO: Test
             }
             else
             {

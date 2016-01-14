@@ -39,5 +39,23 @@ namespace L_IckEtS.data.entity
                 }
             }
         }
+
+        internal static Boolean insertAction(DB connection, L_IckEtS.model.Action action)
+        {
+            using (SqlConnection db = connection.getConnection())
+            {
+                using (SqlCommand command = new SqlCommand("CreateAction", db))
+                {
+                    command.Parameters.Add("@note", System.Data.SqlDbType.VarChar).Value = action.note;
+                    command.Parameters.Add("@ticket_id", System.Data.SqlDbType.Int).Value = action.ticket_id;
+                    command.Parameters.Add("@admin_id", System.Data.SqlDbType.Int).Value = action.admin_id;
+                    command.Parameters.Add("@step_order", System.Data.SqlDbType.Int).Value = action.step_order;
+                    command.Parameters.Add("@id_type", System.Data.SqlDbType.Int).Value = action.id_type;
+                    db.Open();
+
+                    return command.ExecuteNonQuery()<1 ? false : true;
+                }
+            }
+        }
     }
 }

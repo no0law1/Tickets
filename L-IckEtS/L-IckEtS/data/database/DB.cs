@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace L_IckEtS.database
 {
-    class DB
+    public class DB
     {
         private System.Data.SqlClient.SqlConnectionStringBuilder builder;
 

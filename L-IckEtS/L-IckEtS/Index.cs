@@ -83,7 +83,7 @@ namespace L_IckEtS_EF
                 var info_requests = RequestDAO.getTicketRequests(database, code);
                 var actions = ActionDAO.getTicketActions(database, code);
 
-                TicketDetails t = new TicketDetails(ticket, type, client, admin, info_requests, actions);
+                TicketDetails t = new TicketDetails(database, ticket, type, client, admin, info_requests, actions);
                 t.Changed += new TicketDetails.RemovedEventHandler(TicketRemoved);
                 t.Show();
             }

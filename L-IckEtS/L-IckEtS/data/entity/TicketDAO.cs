@@ -4,6 +4,7 @@ using L_IckEtS.model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace L_IckEtS.data.entity
@@ -87,8 +88,15 @@ namespace L_IckEtS.data.entity
         {
             using (SqlConnection db = connection.getConnection())
             {
-                //TODO: Use stored procedure
-                return false;
+                using (SqlCommand command = new SqlCommand("RemoveTicket", db))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.Add("@code", SqlDbType.Int).Value = code;
+                    command.Parameters.Add("@res", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    db.Open();
+
+                    return command.ExecuteNonQuery() < 1 ? false : true;
+                }
             }
         }
     }
