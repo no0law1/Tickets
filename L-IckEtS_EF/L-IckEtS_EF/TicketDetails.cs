@@ -105,30 +105,41 @@ namespace L_IckEtS_EF
                     tp = new TicketSystemDBQueryable().getTypeById(db, t.id_type);
                 actions = new TicketSystemDBQueryable().getTicketActions(db, t.code);
 
-                XElement ticket_xml = XMLUtils.ticketToXml(t);
-                ticket_xml.Add(XMLUtils.ownerToXml(c));
-                ticket_xml.Add(XMLUtils.supervisorToXml(admin));
-                ticket_xml.Add(new XElement("description", t.description));
-                ticket_xml.Add(XMLUtils.typeToXml(tp));
-                ticket_xml.Add(XMLUtils.actionsToXml(actions));
+                StringWriter wr = writeTicketToXml(t, c, admin, tp, actions);
 
-                XDocument final = new XDocument(new XDeclaration("1.0", "utf-8", null), ticket_xml);
-
-                //StringWriter returns encoding utf-16. No worries :)
-                var wr = new StringWriter();
-                //TODO: Save into file
-                final.Save(wr);
                 Console.Write(wr.GetStringBuilder().ToString());
             }
         }
 
+        private StringWriter writeTicketToXml(ticket t, client c, administrator admin, L_IckEtS_EF.type tp, IEnumerable<action> actions)
+        {
+            XElement ticket_xml = XMLUtils.ticketToXml(t);
+            ticket_xml.Add(XMLUtils.ownerToXml(c));
+            ticket_xml.Add(XMLUtils.supervisorToXml(admin));
+            ticket_xml.Add(new XElement("description", t.description));
+            ticket_xml.Add(XMLUtils.typeToXml(tp));
+            ticket_xml.Add(XMLUtils.actionsToXml(actions));
+
+            XDocument final = new XDocument(new XDeclaration("1.0", "utf-8", null), ticket_xml);
+
+            //StringWriter returns encoding utf-16. No worries :)
+            var wr = new StringWriter();
+            //TODO: Save into file
+            final.Save(wr);
+            return wr;
+        }
+
         private void remove_Click(object sender, EventArgs e)
         {
+            AskAdminID admin = new AskAdminID();
+            admin.ShowDialog();
+
+            int admin_id = admin.id;
             using (ticket_systemEntities db = new ticket_systemEntities())
             {
                 ObjectParameter count = new ObjectParameter("res", SqlDbType.Int);
                 db.RemoveTicket(this.t.code, count);
-                if (!count.Value.Equals(0))
+                if (!count.Value.Equals(0) && t.admin_id == admin_id)
                 {
                     MessageBox.Show("Ticket successfully removed");
                     OnTicketChanged(EventArgs.Empty);
