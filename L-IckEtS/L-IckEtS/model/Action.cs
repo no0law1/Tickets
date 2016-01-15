@@ -8,12 +8,6 @@ namespace L_IckEtS.model
 {
     public class Action
     {
-        private string p1;
-        private int p2;
-        private int admin_id1;
-        private int order;
-        private int? nullable;
-
         public DateTime created_at {get; set;}
 		public Nullable<DateTime> ended_at {get; set;}
 

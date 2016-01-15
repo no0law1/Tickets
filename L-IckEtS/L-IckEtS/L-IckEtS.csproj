@@ -59,14 +59,9 @@
     <Compile Include="data\entity\AdminDAO.cs" />
     <Compile Include="data\entity\ClientDAO.cs" />
     <Compile Include="data\entity\RequestDAO.cs" />
+    <Compile Include="data\entity\StepDAO.cs" />
     <Compile Include="data\entity\TicketDAO.cs" />
     <Compile Include="data\entity\TypeDAO.cs" />
-    <Compile Include="engine\command\CloseTicket.cs" />
-    <Compile Include="engine\command\common\ICommand.cs" />
-    <Compile Include="engine\command\CreateAction.cs" />
-    <Compile Include="engine\command\ExportTicket.cs" />
-    <Compile Include="engine\command\ListTickets.cs" />
-    <Compile Include="engine\command\RemoveTicket.cs" />
     <Compile Include="Index.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +72,7 @@
     <Compile Include="model\Admin.cs" />
     <Compile Include="model\Client.cs" />
     <Compile Include="model\Request.cs" />
+    <Compile Include="model\Step.cs" />
     <Compile Include="model\Ticket.cs" />
     <Compile Include="model\Type.cs" />
     <Compile Include="Program.cs" />
@@ -115,9 +111,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="xml_schema.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

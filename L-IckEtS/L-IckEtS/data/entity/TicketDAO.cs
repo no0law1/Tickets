@@ -18,14 +18,17 @@ namespace L_IckEtS.data.entity
             string state = SqlDataReaderUtils.GetValue<string>(data, 1);
             string description = SqlDataReaderUtils.GetValue<string>(data, 2);
             DateTime created_at = SqlDataReaderUtils.GetValue<DateTime>(data, 3);
-            DateTime closed_at = SqlDataReaderUtils.GetValue<DateTime>(data, 4);
+            DateTime? closed_at = SqlDataReaderUtils.GetValue<DateTime>(data, 4);
             string priority = SqlDataReaderUtils.GetValue<string>(data, 5);
-            DateTime deleted_at = SqlDataReaderUtils.GetValue<DateTime>(data, 6);
+            DateTime? deleted_at = SqlDataReaderUtils.GetValue<DateTime>(data, 6);
             int admin_id = SqlDataReaderUtils.GetValue<int>(data, 7);
             int client_id = SqlDataReaderUtils.GetValue<int>(data, 8);
-            int id_type = SqlDataReaderUtils.GetValue<int>(data, 9);
+            int? id_type = SqlDataReaderUtils.GetValue<int>(data, 9);
 
-            return new Ticket(code, state, description, created_at, closed_at, priority, deleted_at, admin_id, client_id, id_type);
+            return new Ticket(code, state, description,
+                                created_at, closed_at.Equals(default(DateTime))?null:closed_at,
+                                priority, deleted_at.Equals(default(DateTime))?null:deleted_at, admin_id,
+                                client_id, id_type.Equals(default(DateTime))?null:id_type);
         }
 
         public static IEnumerable<Ticket> getNonClosedTickets(DB connection)

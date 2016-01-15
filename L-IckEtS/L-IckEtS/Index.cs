@@ -54,8 +54,8 @@ namespace L_IckEtS_EF
                 {
                     break;
                 }
-                string closed = ticket.closed_at == null ? "" : ticket.closed_at.ToString();
-                string[] row = { ticket.code.ToString(), ticket.STATE, ticket.created_at.ToString(), closed, ticket.priority, ticket.admin_id.ToString() };
+                string closed = ticket.closed_at.Equals(default(DateTime)) ? "" : ticket.closed_at.ToString();
+                string[] row = { ticket.code.ToString(), ticket.STATE, ticket.created_at.ToShortDateString(), closed, ticket.priority, ticket.admin_id.ToString() };
                 var listViewItem = new ListViewItem(row);
                 ticket_list.Items.Add(listViewItem);
             }
@@ -82,8 +82,9 @@ namespace L_IckEtS_EF
                 var admin = AdminDAO.getAdminByID(database, ticket.admin_id);
                 var info_requests = RequestDAO.getTicketRequests(database, code);
                 var actions = ActionDAO.getTicketActions(database, code);
+                var steps = type != null ? StepDAO.getStepsOfType(database, type.id) : null;
 
-                TicketDetails t = new TicketDetails(database, ticket, type, client, admin, info_requests, actions);
+                TicketDetails t = new TicketDetails(database, ticket, type, client, admin, info_requests, actions, steps);
                 t.Changed += new TicketDetails.RemovedEventHandler(TicketRemoved);
                 t.Show();
             }

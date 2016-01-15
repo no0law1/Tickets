@@ -39,9 +39,12 @@ namespace L_IckEtS_EF
 
         private IEnumerable<L_IckEtS.model.Action> actions;
 
+        private IEnumerable<Step> steps;
+
         public TicketDetails(DB database, Ticket ticket, L_IckEtS.model.Type type, Client client,
                                 Admin admin, IEnumerable<Request> requests,
-                                IEnumerable<L_IckEtS.model.Action> actions)
+                                IEnumerable<L_IckEtS.model.Action> actions,
+                                IEnumerable<Step> steps)
         {
             InitializeComponent();
             this.database = database;
@@ -51,6 +54,7 @@ namespace L_IckEtS_EF
             this.admin = admin;
             this.requests = requests;
             this.actions = actions;
+            this.steps = steps;
             UpdateUI();
         }
         private void UpdateUI()
@@ -77,7 +81,7 @@ namespace L_IckEtS_EF
             action_type.Text = ticketType == null ? "" : ticketType.name;
             foreach (L_IckEtS.model.Action action in actions)
             {
-                string[] row = { action.note, action.admin_id.ToString(), action.step_order.ToString(), action.ended_at == null ? "" : true.ToString() };
+                string[] row = { action.note, action.created_at.ToShortDateString(), action.ended_at == null ? "" : true.ToString(), action.admin_id.ToString() };
                 var listViewItem = new ListViewItem(row);
                 actions_list.Items.Add(listViewItem);
             }
@@ -90,6 +94,10 @@ namespace L_IckEtS_EF
             else
             {
                 state_list.SetSelected(0, true);
+                foreach(var step in steps)
+                {
+                    list_steps.Items.Add(step.description);
+                }
             }
         }
 
@@ -113,16 +121,27 @@ namespace L_IckEtS_EF
 
         private void remove_Click(object sender, EventArgs e)
         {
-            if (TicketDAO.removeTicket(database, ticket.code))
+            AskAdminID admin = new AskAdminID();
+            admin.ShowDialog();
+
+            int admin_id = admin.id;
+            if (actions != null && ticket.admin_id == admin_id)
             {
-                MessageBox.Show("Ticket successfully removed");
-                OnTicketChanged(EventArgs.Empty);
+                if (TicketDAO.removeTicket(database, ticket.code))
+                {
+                    MessageBox.Show("Ticket successfully removed");
+                    OnTicketChanged(EventArgs.Empty);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Error");
+                }
             }
             else
             {
                 MessageBox.Show("Error");
             }
-            Close();
         }
 
         private void submit_action_Click(object sender, EventArgs e)
@@ -133,9 +152,17 @@ namespace L_IckEtS_EF
             int admin_id = admin.id;
             if (state_list.SelectedItem.ToString().Equals(ticket.STATE))
             {
-                int order = actions_list.Items.Count + 1;
-                L_IckEtS.model.Action action = new L_IckEtS.model.Action(note.Text, ticket.code, admin_id, order, ticket.id_type);
-                ActionDAO.insertAction(database, action);
+                int order = list_steps.SelectedIndex;
+                if (order >= 0)
+                {
+                    L_IckEtS.model.Action action = new L_IckEtS.model.Action(note.Text, ticket.code, admin_id, order + 1, ticket.id_type);
+                    ActionDAO.insertAction(database, action);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Must Select a step");
+                }
                 //TODO: Test
             }
             else
@@ -146,6 +173,7 @@ namespace L_IckEtS_EF
                         {
                             TicketDAO.closeTicket(database, ticket.code);
                             OnTicketChanged(EventArgs.Empty);
+                            Close();
                         }
                         else
                         {

@@ -53,10 +53,12 @@
             this.pinned_action_type = new System.Windows.Forms.Label();
             this.actions_list = new System.Windows.Forms.ListView();
             this.action_note = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.action_admin = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.action_order = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.action_created = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.action_ended = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.action_admin = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ticket_resolve = new System.Windows.Forms.TabPage();
+            this.pinned_step = new System.Windows.Forms.Label();
+            this.list_steps = new System.Windows.Forms.ListBox();
             this.state_list = new System.Windows.Forms.ListBox();
             this.pinned_state = new System.Windows.Forms.Label();
             this.submit_action = new System.Windows.Forms.Button();
@@ -289,9 +291,9 @@
             // 
             this.actions_list.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.action_note,
-            this.action_admin,
-            this.action_order,
-            this.action_ended});
+            this.action_created,
+            this.action_ended,
+            this.action_admin});
             this.actions_list.FullRowSelect = true;
             this.actions_list.Location = new System.Drawing.Point(8, 43);
             this.actions_list.Name = "actions_list";
@@ -303,21 +305,26 @@
             // action_note
             // 
             this.action_note.Text = "Note";
+            this.action_note.Width = 61;
+            // 
+            // action_created
+            // 
+            this.action_created.Text = "Created";
+            this.action_created.Width = 82;
+            // 
+            // action_ended
+            // 
+            this.action_ended.Text = "Finished";
+            this.action_ended.Width = 52;
             // 
             // action_admin
             // 
             this.action_admin.Text = "Admin";
             // 
-            // action_order
-            // 
-            this.action_order.Text = "Order";
-            // 
-            // action_ended
-            // 
-            this.action_ended.Text = "Finished";
-            // 
             // ticket_resolve
             // 
+            this.ticket_resolve.Controls.Add(this.pinned_step);
+            this.ticket_resolve.Controls.Add(this.list_steps);
             this.ticket_resolve.Controls.Add(this.state_list);
             this.ticket_resolve.Controls.Add(this.pinned_state);
             this.ticket_resolve.Controls.Add(this.submit_action);
@@ -333,13 +340,31 @@
             this.ticket_resolve.Text = "Resolve";
             this.ticket_resolve.UseVisualStyleBackColor = true;
             // 
+            // pinned_step
+            // 
+            this.pinned_step.AutoSize = true;
+            this.pinned_step.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pinned_step.Location = new System.Drawing.Point(8, 80);
+            this.pinned_step.Name = "pinned_step";
+            this.pinned_step.Size = new System.Drawing.Size(39, 13);
+            this.pinned_step.TabIndex = 22;
+            this.pinned_step.Text = "Steps";
+            // 
+            // list_steps
+            // 
+            this.list_steps.FormattingEnabled = true;
+            this.list_steps.Location = new System.Drawing.Point(48, 80);
+            this.list_steps.Name = "list_steps";
+            this.list_steps.Size = new System.Drawing.Size(134, 56);
+            this.list_steps.TabIndex = 21;
+            // 
             // state_list
             // 
             this.state_list.FormattingEnabled = true;
             this.state_list.Items.AddRange(new object[] {
             "In Progress",
             "Closed"});
-            this.state_list.Location = new System.Drawing.Point(48, 103);
+            this.state_list.Location = new System.Drawing.Point(48, 146);
             this.state_list.Name = "state_list";
             this.state_list.Size = new System.Drawing.Size(134, 30);
             this.state_list.TabIndex = 20;
@@ -348,7 +373,7 @@
             // 
             this.pinned_state.AutoSize = true;
             this.pinned_state.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pinned_state.Location = new System.Drawing.Point(5, 103);
+            this.pinned_state.Location = new System.Drawing.Point(8, 146);
             this.pinned_state.Name = "pinned_state";
             this.pinned_state.Size = new System.Drawing.Size(37, 13);
             this.pinned_state.TabIndex = 19;
@@ -458,7 +483,9 @@
         private System.Windows.Forms.ListView actions_list;
         private System.Windows.Forms.ColumnHeader action_note;
         private System.Windows.Forms.ColumnHeader action_admin;
-        private System.Windows.Forms.ColumnHeader action_order;
         private System.Windows.Forms.ColumnHeader action_ended;
+        private System.Windows.Forms.Label pinned_step;
+        private System.Windows.Forms.ListBox list_steps;
+        private System.Windows.Forms.ColumnHeader action_created;
     }
 }

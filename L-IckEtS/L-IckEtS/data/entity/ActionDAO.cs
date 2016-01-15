@@ -10,15 +10,15 @@ namespace L_IckEtS.data.entity
     {
         private static model.Action createAction(SqlDataReader data)
         {
-            DateTime created_at = SqlDataReaderUtils.GetValue<DateTime>(data, 0);
-            Nullable<DateTime> ended_at = SqlDataReaderUtils.GetValue<DateTime>(data, 1);
-            string note = SqlDataReaderUtils.GetValue<String>(data, 2);
-            int ticket_id = SqlDataReaderUtils.GetValue<int>(data, 3);
-            int admin_id = SqlDataReaderUtils.GetValue<int>(data, 4);
-            int step_order = SqlDataReaderUtils.GetValue<int>(data, 5);
-            int id_type = SqlDataReaderUtils.GetValue<int>(data, 6);
+            DateTime created_at = SqlDataReaderUtils.GetValue<DateTime>(data, 1);
+            Nullable<DateTime> ended_at = SqlDataReaderUtils.GetValue<DateTime>(data, 2);
+            string note = SqlDataReaderUtils.GetValue<String>(data, 3);
+            int ticket_id = SqlDataReaderUtils.GetValue<int>(data, 4);
+            int admin_id = SqlDataReaderUtils.GetValue<int>(data, 5);
+            int step_order = SqlDataReaderUtils.GetValue<int>(data, 6);
+            int id_type = SqlDataReaderUtils.GetValue<int>(data, 7);
 
-            return new model.Action(created_at, ended_at, note, ticket_id, admin_id, step_order, id_type);
+            return new model.Action(created_at, ended_at.Equals(default(DateTime))?null:ended_at, note, ticket_id, admin_id, step_order, id_type);
         }
 
         public static IEnumerable<model.Action> getTicketActions(DB connection, int ticketID)
@@ -46,6 +46,7 @@ namespace L_IckEtS.data.entity
             {
                 using (SqlCommand command = new SqlCommand("CreateAction", db))
                 {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.Add("@note", System.Data.SqlDbType.VarChar).Value = action.note;
                     command.Parameters.Add("@ticket_id", System.Data.SqlDbType.Int).Value = action.ticket_id;
                     command.Parameters.Add("@admin_id", System.Data.SqlDbType.Int).Value = action.admin_id;

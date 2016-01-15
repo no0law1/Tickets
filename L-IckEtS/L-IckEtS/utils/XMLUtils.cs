@@ -5,9 +5,9 @@ using System.Xml.Linq;
 
 namespace L_IckEtS_EF.utils
 {
-    class XMLUtils
+    public class XMLUtils
     {
-        static internal XElement ticketToXml(Ticket t)
+        public static XElement ticketToXml(Ticket t)
         {
             return new XElement("ticket",
                     new XAttribute("type", t.id_type),
@@ -15,7 +15,7 @@ namespace L_IckEtS_EF.utils
                     new XAttribute("status", t.STATE));
         }
 
-        static internal XElement ownerToXml(Client c)
+        public static XElement ownerToXml(Client c)
         {
             return new XElement("owner",
                     new XAttribute("ownerID", c.id),
@@ -24,7 +24,7 @@ namespace L_IckEtS_EF.utils
                     c.name);
         }
 
-        static internal XElement supervisorToXml(Admin admin)
+        public static XElement supervisorToXml(Admin admin)
         {
             return new XElement("supervisor",
                     new XAttribute("technicianID", admin.id),
@@ -33,7 +33,7 @@ namespace L_IckEtS_EF.utils
                     admin.name);
         }
 
-        static internal XElement typeToXml(Type tp)
+        public static XElement typeToXml(Type tp)
         {
             if (tp == null)
             {
@@ -46,7 +46,7 @@ namespace L_IckEtS_EF.utils
                     tp.name);
         }
 
-        static internal XElement actionsToXml(IEnumerable<Action> actions)
+        public static XElement actionsToXml(IEnumerable<Action> actions)
         {
             XElement actions_xml = new XElement("actions");
             foreach (Action a in actions)
@@ -56,7 +56,7 @@ namespace L_IckEtS_EF.utils
             return actions_xml;
         }
 
-        static internal XElement actionToXml(Action a)
+        public static XElement actionToXml(Action a)
         {
             return new XElement("action",
                     new XAttribute("orderNum", a.step_order),

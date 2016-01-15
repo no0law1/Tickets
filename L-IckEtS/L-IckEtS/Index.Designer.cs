@@ -89,6 +89,7 @@
             // code
             // 
             this.code.Text = "Code";
+            this.code.Width = 41;
             // 
             // state
             // 
@@ -97,12 +98,12 @@
             // created
             // 
             this.created.Text = "Created";
-            this.created.Width = 75;
+            this.created.Width = 82;
             // 
             // closed
             // 
             this.closed.Text = "Closed";
-            this.closed.Width = 75;
+            this.closed.Width = 81;
             // 
             // priority
             // 
