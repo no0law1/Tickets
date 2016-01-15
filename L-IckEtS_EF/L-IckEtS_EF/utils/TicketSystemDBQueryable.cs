@@ -57,5 +57,15 @@ namespace L_IckEtS_EF.utils
         {
             return db.action.SqlQuery("select * from action where ticket_id=@code", new SqlParameter("@code", code));
         }
+
+        internal IEnumerable<step> getStepsOfType(ticket_systemEntities db, int id)
+        {
+            return db.step.SqlQuery("SELECT * FROM step where id_type=@id order by num_order", new SqlParameter("@id", id)).AsEnumerable();
+        }
+
+        internal Boolean existsActions(ticket_systemEntities db, int id)
+        {
+            return db.action.SqlQuery("SELECT * FROM action WHERE ticket_id = @id", new SqlParameter("@id", id)).Any();
+        }
     }
 }

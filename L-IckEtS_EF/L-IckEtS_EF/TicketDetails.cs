@@ -29,13 +29,22 @@ namespace L_IckEtS_EF
 
         private ticket t;
 
-        public TicketDetails(ticket t, IEnumerable<request> r, IEnumerable<action> actions)
+        private IEnumerable<request> requests;
+
+        private IEnumerable<action> actions;
+
+        private IEnumerable<step> steps;
+
+        public TicketDetails(ticket t, IEnumerable<request> requests, IEnumerable<action> actions, IEnumerable<step> steps)
         {
             InitializeComponent();
             this.t = t;
-            UpdateUI(t, r, actions);
+            this.requests = requests;
+            this.actions = actions;
+            this.steps = steps;
+            UpdateUI();
         }
-        private void UpdateUI(ticket t, IEnumerable<request> r, IEnumerable<action> actions)
+        private void UpdateUI()
         {
             // DETAILS
             this.Text = "Ticket " + this.t.code;
@@ -47,7 +56,7 @@ namespace L_IckEtS_EF
             closed.Text = t.closed_at.HasValue ? t.closed_at.GetValueOrDefault().ToShortDateString() : "";
 
             // REQUESTS
-            foreach (request req in r)
+            foreach (request req in requests)
             {
                 string response_date = req.response_date.HasValue ? req.response_date.Value.ToShortDateString() : "";
                 string[] row = { req.id.ToString(), req.created_at.ToShortDateString(), response_date, req.admin_id.ToString() };
@@ -72,6 +81,10 @@ namespace L_IckEtS_EF
             else
             {
                 state_list.SetSelected(0, true);
+                foreach(var step_aux in steps)
+                {
+                    steps_list.Items.Add(step_aux.description);
+                }
             }
         }
 
@@ -135,12 +148,19 @@ namespace L_IckEtS_EF
             {
                 if (state_list.SelectedItem.ToString().Equals(t.STATE))
                 {
-                    int order = actions_list.Items.Count + 1;
-                    db.CreateAction(note.Text, t.code, admin_id, order, t.id_type);
+                    int order = steps_list.SelectedIndex;
+                    if (order != -1)
+                    {
+                        db.CreateAction(note.Text, t.code, admin_id, order + 1, t.id_type);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Must choose step to resolve");
+                    }
                 }
                 else
                 {
-                    if (db.action.SqlQuery("SELECT * FROM action WHERE ticket_id = @id", new SqlParameter("@id", t.code)).Any())
+                    if (new TicketSystemDBQueryable().existsActions(db, t.code))
                     {
                         if (t.admin_id == admin_id)
                         {
