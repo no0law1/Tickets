@@ -24,7 +24,6 @@ namespace L_IckEtS.database
         public SqlConnection getConnection(){
             SqlConnection con = new SqlConnection();
             con.ConnectionString = builder.ConnectionString;
-            Console.Write(con.ConnectionString);
             return con;
         }
 

@@ -56,6 +56,7 @@ namespace L_IckEtS_EF
             closed.Text = t.closed_at.HasValue ? t.closed_at.GetValueOrDefault().ToShortDateString() : "";
 
             // REQUESTS
+            info_requests.Items.Clear();
             foreach (request req in requests)
             {
                 string response_date = req.response_date.HasValue ? req.response_date.Value.ToShortDateString() : "";
@@ -66,6 +67,7 @@ namespace L_IckEtS_EF
 
             // ACTIONS
             action_type.Text = t.type == null ? "" : t.type.NAME;
+            actions_list.Items.Clear();
             foreach (var action in actions)
             {
                 string[] row = { action.note, action.admin_id.ToString(), action.step_order.ToString(), action.ended_at==null ? "":true.ToString() };
@@ -81,6 +83,7 @@ namespace L_IckEtS_EF
             else
             {
                 state_list.SetSelected(0, true);
+                steps_list.Items.Clear();
                 foreach(var step_aux in steps)
                 {
                     steps_list.Items.Add(step_aux.description);
@@ -100,7 +103,7 @@ namespace L_IckEtS_EF
                 admin = new TicketSystemDBQueryable().getAdminById(db, t.admin_id);
                 if (t.id_type != null)
                     tp = new TicketSystemDBQueryable().getTypeById(db, t.id_type);
-                actions = new TicketSystemDBQueryable().getActionsByTicketId(db, t.code);
+                actions = new TicketSystemDBQueryable().getTicketActions(db, t.code);
 
                 XElement ticket_xml = XMLUtils.ticketToXml(t);
                 ticket_xml.Add(XMLUtils.ownerToXml(c));
@@ -152,6 +155,7 @@ namespace L_IckEtS_EF
                     if (order != -1)
                     {
                         db.CreateAction(note.Text, t.code, admin_id, order + 1, t.id_type);
+                        Close();
                     }
                     else
                     {
@@ -166,6 +170,7 @@ namespace L_IckEtS_EF
                         {
                             db.CloseTicket(t.code);
                             OnTicketChanged(EventArgs.Empty);
+                            Close();
                         }
                         else
                         {
