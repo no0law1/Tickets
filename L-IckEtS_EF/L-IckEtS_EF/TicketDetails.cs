@@ -78,7 +78,10 @@ namespace L_IckEtS_EF
             // RESOLVE
             if (!t.STATE.Equals("In Progress"))
             {
-                this.tabControl1.TabPages.Remove(ticket_resolve);
+                note.Enabled = false;
+                steps_list.Enabled = false;
+                submit_action.Enabled = false;
+                state_list.Enabled = false;
             }
             else
             {

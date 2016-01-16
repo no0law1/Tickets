@@ -58,7 +58,7 @@
             this.action_admin = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ticket_resolve = new System.Windows.Forms.TabPage();
             this.pinned_step = new System.Windows.Forms.Label();
-            this.list_steps = new System.Windows.Forms.ListBox();
+            this.steps_list = new System.Windows.Forms.ListBox();
             this.state_list = new System.Windows.Forms.ListBox();
             this.pinned_state = new System.Windows.Forms.Label();
             this.submit_action = new System.Windows.Forms.Button();
@@ -324,7 +324,7 @@
             // ticket_resolve
             // 
             this.ticket_resolve.Controls.Add(this.pinned_step);
-            this.ticket_resolve.Controls.Add(this.list_steps);
+            this.ticket_resolve.Controls.Add(this.steps_list);
             this.ticket_resolve.Controls.Add(this.state_list);
             this.ticket_resolve.Controls.Add(this.pinned_state);
             this.ticket_resolve.Controls.Add(this.submit_action);
@@ -350,13 +350,13 @@
             this.pinned_step.TabIndex = 22;
             this.pinned_step.Text = "Steps";
             // 
-            // list_steps
+            // steps_list
             // 
-            this.list_steps.FormattingEnabled = true;
-            this.list_steps.Location = new System.Drawing.Point(48, 80);
-            this.list_steps.Name = "list_steps";
-            this.list_steps.Size = new System.Drawing.Size(134, 56);
-            this.list_steps.TabIndex = 21;
+            this.steps_list.FormattingEnabled = true;
+            this.steps_list.Location = new System.Drawing.Point(48, 80);
+            this.steps_list.Name = "steps_list";
+            this.steps_list.Size = new System.Drawing.Size(134, 56);
+            this.steps_list.TabIndex = 21;
             // 
             // state_list
             // 
@@ -485,7 +485,7 @@
         private System.Windows.Forms.ColumnHeader action_admin;
         private System.Windows.Forms.ColumnHeader action_ended;
         private System.Windows.Forms.Label pinned_step;
-        private System.Windows.Forms.ListBox list_steps;
+        private System.Windows.Forms.ListBox steps_list;
         private System.Windows.Forms.ColumnHeader action_created;
     }
 }

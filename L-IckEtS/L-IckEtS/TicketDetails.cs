@@ -89,14 +89,17 @@ namespace L_IckEtS_EF
             // RESOLVE
             if (!ticket.STATE.Equals("In Progress"))
             {
-                this.tabControl1.TabPages.Remove(ticket_resolve);
+                note.Enabled = false;
+                steps_list.Enabled = false;
+                submit_action.Enabled = false;
+                state_list.Enabled = false;
             }
             else
             {
                 state_list.SetSelected(0, true);
                 foreach(var step in steps)
                 {
-                    list_steps.Items.Add(step.description);
+                    steps_list.Items.Add(step.description);
                 }
             }
         }
@@ -152,7 +155,7 @@ namespace L_IckEtS_EF
             int admin_id = admin.id;
             if (state_list.SelectedItem.ToString().Equals(ticket.STATE))
             {
-                int order = list_steps.SelectedIndex;
+                int order = steps_list.SelectedIndex;
                 if (order >= 0)
                 {
                     L_IckEtS.model.Action action = new L_IckEtS.model.Action(note.Text, ticket.code, admin_id, order + 1, ticket.id_type);
