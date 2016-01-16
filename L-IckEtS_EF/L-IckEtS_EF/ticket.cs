@@ -16,9 +16,9 @@ namespace L_IckEtS_EF
     {
         public ticket()
         {
-            this.action = new HashSet<action>();
             this.history = new HashSet<history>();
             this.request = new HashSet<request>();
+            this.action = new HashSet<action>();
         }
     
         public int code { get; set; }
@@ -32,11 +32,11 @@ namespace L_IckEtS_EF
         public int client_id { get; set; }
         public Nullable<int> id_type { get; set; }
     
-        public virtual ICollection<action> action { get; set; }
         public virtual administrator administrator { get; set; }
         public virtual client client { get; set; }
         public virtual ICollection<history> history { get; set; }
         public virtual ICollection<request> request { get; set; }
         public virtual type type { get; set; }
+        public virtual ICollection<action> action { get; set; }
     }
 }

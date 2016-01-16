@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="54034c4ae0d14916881b95b4b7e5da61" Name="Diagram1" ZoomLevel="78">
-        <EntityTypeShape EntityType="ticket_systemModel.action" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ticket_systemModel.administrator" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ticket_systemModel.client" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ticket_systemModel.history" Width="1.5" PointX="6" PointY="1.75" IsExpanded="true" />
@@ -14,9 +13,6 @@
         <EntityTypeShape EntityType="ticket_systemModel.ticket" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ticket_systemModel.type" Width="1.5" PointX="8" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ticket_systemModel.GetTicketsView" Width="1.5" PointX="10.625" PointY="4.375" IsExpanded="true" />
-        <AssociationConnector Association="ticket_systemModel.FK__action__24927208" ManuallyRouted="false" />
-        <AssociationConnector Association="ticket_systemModel.FK__action__admin_id__239E4DCF" ManuallyRouted="false" />
-        <AssociationConnector Association="ticket_systemModel.FK__action__ticket_i__22AA2996" ManuallyRouted="false" />
         <AssociationConnector Association="ticket_systemModel.FK__request__admin_i__29572725" ManuallyRouted="false" />
         <AssociationConnector Association="ticket_systemModel.FK__ticket__admin_id__182C9B23" ManuallyRouted="false" />
         <AssociationConnector Association="ticket_systemModel.FK__request__client___286302EC" ManuallyRouted="false" />
@@ -25,6 +21,10 @@
         <AssociationConnector Association="ticket_systemModel.FK__request__ticket___276EDEB3" ManuallyRouted="false" />
         <AssociationConnector Association="ticket_systemModel.FK__step__id_type__1ED998B2" ManuallyRouted="false" />
         <AssociationConnector Association="ticket_systemModel.FK__ticket__id_type__1A14E395" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ticket_systemModel.action" Width="1.5" PointX="3" PointY="6.125" />
+        <AssociationConnector Association="ticket_systemModel.FK__action__24927208" />
+        <AssociationConnector Association="ticket_systemModel.FK__action__admin_id__239E4DCF" />
+        <AssociationConnector Association="ticket_systemModel.FK__action__ticket_i__22AA2996" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

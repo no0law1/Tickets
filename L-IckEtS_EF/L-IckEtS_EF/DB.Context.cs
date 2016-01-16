@@ -27,7 +27,6 @@ namespace L_IckEtS_EF
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<action> action { get; set; }
         public virtual DbSet<administrator> administrator { get; set; }
         public virtual DbSet<client> client { get; set; }
         public virtual DbSet<history> history { get; set; }
@@ -36,22 +35,15 @@ namespace L_IckEtS_EF
         public virtual DbSet<ticket> ticket { get; set; }
         public virtual DbSet<type> type { get; set; }
         public virtual DbSet<ticket> GetTicketsView { get; set; }
+        public virtual DbSet<action> action { get; set; }
     
-        public virtual int CloseAction(Nullable<int> ticket_id, Nullable<int> type_id, Nullable<int> step_order)
+        public virtual int CloseAction(Nullable<int> id)
         {
-            var ticket_idParameter = ticket_id.HasValue ?
-                new ObjectParameter("ticket_id", ticket_id) :
-                new ObjectParameter("ticket_id", typeof(int));
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
     
-            var type_idParameter = type_id.HasValue ?
-                new ObjectParameter("type_id", type_id) :
-                new ObjectParameter("type_id", typeof(int));
-    
-            var step_orderParameter = step_order.HasValue ?
-                new ObjectParameter("step_order", step_order) :
-                new ObjectParameter("step_order", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CloseAction", ticket_idParameter, type_idParameter, step_orderParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CloseAction", idParameter);
         }
     
         public virtual int CloseTicket(Nullable<int> code)

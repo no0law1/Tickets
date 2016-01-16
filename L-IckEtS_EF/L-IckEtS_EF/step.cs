@@ -23,7 +23,7 @@ namespace L_IckEtS_EF
         public string description { get; set; }
         public int id_type { get; set; }
     
-        public virtual ICollection<action> action { get; set; }
         public virtual type type { get; set; }
+        public virtual ICollection<action> action { get; set; }
     }
 }

@@ -14,11 +14,12 @@ namespace L_IckEtS_EF
     
     public partial class action
     {
+        public int id { get; set; }
         public System.DateTime created_at { get; set; }
         public Nullable<System.DateTime> ended_at { get; set; }
         public string note { get; set; }
         public int ticket_id { get; set; }
-        public Nullable<int> admin_id { get; set; }
+        public int admin_id { get; set; }
         public int step_order { get; set; }
         public int id_type { get; set; }
     

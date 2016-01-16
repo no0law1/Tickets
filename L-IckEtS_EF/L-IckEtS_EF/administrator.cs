@@ -16,17 +16,17 @@ namespace L_IckEtS_EF
     {
         public administrator()
         {
-            this.action = new HashSet<action>();
             this.request = new HashSet<request>();
             this.ticket = new HashSet<ticket>();
+            this.action = new HashSet<action>();
         }
     
         public int id { get; set; }
         public string NAME { get; set; }
         public string email { get; set; }
     
-        public virtual ICollection<action> action { get; set; }
         public virtual ICollection<request> request { get; set; }
         public virtual ICollection<ticket> ticket { get; set; }
+        public virtual ICollection<action> action { get; set; }
     }
 }

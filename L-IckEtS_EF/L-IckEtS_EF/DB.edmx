@@ -7,15 +7,14 @@
     <Schema Namespace="ticket_systemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="action">
           <Key>
-            <PropertyRef Name="ticket_id" />
-            <PropertyRef Name="step_order" />
-            <PropertyRef Name="id_type" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="created_at" Type="datetime" Nullable="false" />
           <Property Name="ended_at" Type="datetime" />
           <Property Name="note" Type="varchar" MaxLength="255" />
           <Property Name="ticket_id" Type="int" Nullable="false" />
-          <Property Name="admin_id" Type="int" />
+          <Property Name="admin_id" Type="int" Nullable="false" />
           <Property Name="step_order" Type="int" Nullable="false" />
           <Property Name="id_type" Type="int" Nullable="false" />
         </EntityType>
@@ -127,7 +126,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__action__admin_id__239E4DCF">
-          <End Role="administrator" Type="Self.administrator" Multiplicity="0..1" />
+          <End Role="administrator" Type="Self.administrator" Multiplicity="1" />
           <End Role="action" Type="Self.action" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="administrator">
@@ -150,7 +149,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__history__ticket___2C3393D0">
+        <Association Name="FK__history__ticket___2D27B809">
           <End Role="ticket" Type="Self.ticket" Multiplicity="1" />
           <End Role="history" Type="Self.history" Multiplicity="*" />
           <ReferentialConstraint>
@@ -162,7 +161,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__request__admin_i__29572725">
+        <Association Name="FK__request__admin_i__2A4B4B5E">
           <End Role="administrator" Type="Self.administrator" Multiplicity="0..1" />
           <End Role="request" Type="Self.request" Multiplicity="*" />
           <ReferentialConstraint>
@@ -174,7 +173,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__request__client___286302EC">
+        <Association Name="FK__request__client___29572725">
           <End Role="client" Type="Self.client" Multiplicity="1" />
           <End Role="request" Type="Self.request" Multiplicity="*" />
           <ReferentialConstraint>
@@ -186,7 +185,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__request__ticket___276EDEB3">
+        <Association Name="FK__request__ticket___286302EC">
           <End Role="ticket" Type="Self.ticket" Multiplicity="1" />
           <End Role="request" Type="Self.request" Multiplicity="*" />
           <ReferentialConstraint>
@@ -247,9 +246,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
           </ReferentialConstraint>
         </Association>
         <Function Name="CloseAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ticket_id" Type="int" Mode="In" />
-          <Parameter Name="type_id" Type="int" Mode="In" />
-          <Parameter Name="step_order" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="CloseTicket" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="code" Type="int" Mode="In" />
@@ -397,19 +394,19 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
             <End Role="ticket" EntitySet="ticket" />
             <End Role="action" EntitySet="action" />
           </AssociationSet>
-          <AssociationSet Name="FK__history__ticket___2C3393D0" Association="Self.FK__history__ticket___2C3393D0">
+          <AssociationSet Name="FK__history__ticket___2D27B809" Association="Self.FK__history__ticket___2D27B809">
             <End Role="ticket" EntitySet="ticket" />
             <End Role="history" EntitySet="history" />
           </AssociationSet>
-          <AssociationSet Name="FK__request__admin_i__29572725" Association="Self.FK__request__admin_i__29572725">
+          <AssociationSet Name="FK__request__admin_i__2A4B4B5E" Association="Self.FK__request__admin_i__2A4B4B5E">
             <End Role="administrator" EntitySet="administrator" />
             <End Role="request" EntitySet="request" />
           </AssociationSet>
-          <AssociationSet Name="FK__request__client___286302EC" Association="Self.FK__request__client___286302EC">
+          <AssociationSet Name="FK__request__client___29572725" Association="Self.FK__request__client___29572725">
             <End Role="client" EntitySet="client" />
             <End Role="request" EntitySet="request" />
           </AssociationSet>
-          <AssociationSet Name="FK__request__ticket___276EDEB3" Association="Self.FK__request__ticket___276EDEB3">
+          <AssociationSet Name="FK__request__ticket___286302EC" Association="Self.FK__request__ticket___286302EC">
             <End Role="ticket" EntitySet="ticket" />
             <End Role="request" EntitySet="request" />
           </AssociationSet>
@@ -434,33 +431,16 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ticket_systemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="action">
-          <Key>
-            <PropertyRef Name="ticket_id" />
-            <PropertyRef Name="step_order" />
-            <PropertyRef Name="id_type" />
-          </Key>
-          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ended_at" Type="DateTime" Precision="3" />
-          <Property Name="note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ticket_id" Type="Int32" Nullable="false" />
-          <Property Name="admin_id" Type="Int32" />
-          <Property Name="step_order" Type="Int32" Nullable="false" />
-          <Property Name="id_type" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="step" Relationship="Self.FK__action__24927208" FromRole="action" ToRole="step" />
-          <NavigationProperty Name="administrator" Relationship="Self.FK__action__admin_id__239E4DCF" FromRole="action" ToRole="administrator" />
-          <NavigationProperty Name="ticket" Relationship="Self.FK__action__ticket_i__22AA2996" FromRole="action" ToRole="ticket" />
-        </EntityType>
         <EntityType Name="administrator">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="String" MaxLength="63" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="action" Relationship="Self.FK__action__admin_id__239E4DCF" FromRole="administrator" ToRole="action" />
           <NavigationProperty Name="request" Relationship="Self.FK__request__admin_i__29572725" FromRole="administrator" ToRole="request" />
           <NavigationProperty Name="ticket" Relationship="Self.FK__ticket__admin_id__182C9B23" FromRole="administrator" ToRole="ticket" />
           <Property Name="email" Type="String" MaxLength="63" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="action" Relationship="ticket_systemModel.FK__action__admin_id__239E4DCF" FromRole="administrator" ToRole="action" />
         </EntityType>
         <EntityType Name="client">
           <Key>
@@ -508,8 +488,8 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
           <Property Name="num_order" Type="Int32" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="id_type" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="action" Relationship="Self.FK__action__24927208" FromRole="step" ToRole="action" />
           <NavigationProperty Name="type" Relationship="Self.FK__step__id_type__1ED998B2" FromRole="step" ToRole="type" />
+          <NavigationProperty Name="action" Relationship="ticket_systemModel.FK__action__24927208" FromRole="step" ToRole="action" />
         </EntityType>
         <EntityType Name="ticket">
           <Key>
@@ -525,12 +505,12 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
           <Property Name="admin_id" Type="Int32" Nullable="false" />
           <Property Name="client_id" Type="Int32" Nullable="false" />
           <Property Name="id_type" Type="Int32" />
-          <NavigationProperty Name="action" Relationship="Self.FK__action__ticket_i__22AA2996" FromRole="ticket" ToRole="action" />
           <NavigationProperty Name="administrator" Relationship="Self.FK__ticket__admin_id__182C9B23" FromRole="ticket" ToRole="administrator" />
           <NavigationProperty Name="client" Relationship="Self.FK__ticket__client_i__1920BF5C" FromRole="ticket" ToRole="client" />
           <NavigationProperty Name="history" Relationship="Self.FK__history__ticket___2C3393D0" FromRole="ticket" ToRole="history" />
           <NavigationProperty Name="request" Relationship="Self.FK__request__ticket___276EDEB3" FromRole="ticket" ToRole="request" />
           <NavigationProperty Name="type" Relationship="Self.FK__ticket__id_type__1A14E395" FromRole="ticket" ToRole="type" />
+          <NavigationProperty Name="action" Relationship="ticket_systemModel.FK__action__ticket_i__22AA2996" FromRole="ticket" ToRole="action" />
         </EntityType>
         <EntityType Name="type">
           <Key>
@@ -561,44 +541,6 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
           <Property Name="days" Type="Int32" />
           <Property Name="priority_value" Type="Int32" Nullable="false" />
         </EntityType>
-        <Association Name="FK__action__24927208">
-          <End Role="step" Type="Self.step" Multiplicity="1" />
-          <End Role="action" Type="Self.action" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="step">
-              <PropertyRef Name="num_order" />
-              <PropertyRef Name="id_type" />
-            </Principal>
-            <Dependent Role="action">
-              <PropertyRef Name="step_order" />
-              <PropertyRef Name="id_type" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__action__admin_id__239E4DCF">
-          <End Role="administrator" Type="Self.administrator" Multiplicity="0..1" />
-          <End Role="action" Type="Self.action" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="administrator">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="action">
-              <PropertyRef Name="admin_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__action__ticket_i__22AA2996">
-          <End Role="ticket" Type="Self.ticket" Multiplicity="1" />
-          <End Role="action" Type="Self.action" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ticket">
-              <PropertyRef Name="code" />
-            </Principal>
-            <Dependent Role="action">
-              <PropertyRef Name="ticket_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__request__admin_i__29572725">
           <End Role="administrator" Type="Self.administrator" Multiplicity="0..1" />
           <End Role="request" Type="Self.request" Multiplicity="*" />
@@ -696,7 +638,6 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ticket_systemEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="action" EntityType="Self.action" />
           <EntitySet Name="administrator" EntityType="Self.administrator" />
           <EntitySet Name="client" EntityType="Self.client" />
           <EntitySet Name="history" EntityType="Self.history" />
@@ -705,18 +646,6 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
           <EntitySet Name="ticket" EntityType="Self.ticket" />
           <EntitySet Name="type" EntityType="Self.type" />
           <EntitySet Name="GetTicketsView" EntityType="Self.GetTicketsView" />
-          <AssociationSet Name="FK__action__24927208" Association="Self.FK__action__24927208">
-            <End Role="step" EntitySet="step" />
-            <End Role="action" EntitySet="action" />
-          </AssociationSet>
-          <AssociationSet Name="FK__action__admin_id__239E4DCF" Association="Self.FK__action__admin_id__239E4DCF">
-            <End Role="administrator" EntitySet="administrator" />
-            <End Role="action" EntitySet="action" />
-          </AssociationSet>
-          <AssociationSet Name="FK__action__ticket_i__22AA2996" Association="Self.FK__action__ticket_i__22AA2996">
-            <End Role="ticket" EntitySet="ticket" />
-            <End Role="action" EntitySet="action" />
-          </AssociationSet>
           <AssociationSet Name="FK__request__admin_i__29572725" Association="Self.FK__request__admin_i__29572725">
             <End Role="administrator" EntitySet="administrator" />
             <End Role="request" EntitySet="request" />
@@ -750,9 +679,7 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
             <End Role="ticket" EntitySet="ticket" />
           </AssociationSet>
           <FunctionImport Name="CloseAction">
-            <Parameter Name="ticket_id" Mode="In" Type="Int32" />
-            <Parameter Name="type_id" Mode="In" Type="Int32" />
-            <Parameter Name="step_order" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CloseTicket">
           <Parameter Name="code" Mode="In" Type="Int32" />
@@ -865,6 +792,19 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
           <FunctionImport Name="UpdateTicketPriority">
           <Parameter Name="code" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="action" EntityType="ticket_systemModel.action" />
+          <AssociationSet Name="FK__action__24927208" Association="ticket_systemModel.FK__action__24927208">
+            <End Role="step" EntitySet="step" />
+            <End Role="action" EntitySet="action" />
+          </AssociationSet>
+          <AssociationSet Name="FK__action__admin_id__239E4DCF" Association="ticket_systemModel.FK__action__admin_id__239E4DCF">
+            <End Role="administrator" EntitySet="administrator" />
+            <End Role="action" EntitySet="action" />
+          </AssociationSet>
+          <AssociationSet Name="FK__action__ticket_i__22AA2996" Association="ticket_systemModel.FK__action__ticket_i__22AA2996">
+            <End Role="ticket" EntitySet="ticket" />
+            <End Role="action" EntitySet="action" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="GetPriorityTickets_Result">
           <Property Type="Int32" Name="code" Nullable="true" />
@@ -880,25 +820,66 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
           <Property Type="String" Name="Action_Notes" Nullable="true" MaxLength="255" />
           <Property Type="DateTime" Name="Action_Completed_When" Nullable="true" Precision="23" />
         </ComplexType>
+        <EntityType Name="action">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ended_at" Type="DateTime" Precision="3" />
+          <Property Name="note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ticket_id" Type="Int32" Nullable="false" />
+          <Property Name="admin_id" Type="Int32" Nullable="false" />
+          <Property Name="step_order" Type="Int32" Nullable="false" />
+          <Property Name="id_type" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="step" Relationship="ticket_systemModel.FK__action__24927208" FromRole="action" ToRole="step" />
+          <NavigationProperty Name="administrator" Relationship="ticket_systemModel.FK__action__admin_id__239E4DCF" FromRole="action" ToRole="administrator" />
+          <NavigationProperty Name="ticket" Relationship="ticket_systemModel.FK__action__ticket_i__22AA2996" FromRole="action" ToRole="ticket" />
+        </EntityType>
+        <Association Name="FK__action__24927208">
+          <End Type="ticket_systemModel.step" Role="step" Multiplicity="1" />
+          <End Type="ticket_systemModel.action" Role="action" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="step">
+              <PropertyRef Name="num_order" />
+              <PropertyRef Name="id_type" />
+            </Principal>
+            <Dependent Role="action">
+              <PropertyRef Name="step_order" />
+              <PropertyRef Name="id_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__action__admin_id__239E4DCF">
+          <End Type="ticket_systemModel.administrator" Role="administrator" Multiplicity="1" />
+          <End Type="ticket_systemModel.action" Role="action" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="administrator">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="action">
+              <PropertyRef Name="admin_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__action__ticket_i__22AA2996">
+          <End Type="ticket_systemModel.ticket" Role="ticket" Multiplicity="1" />
+          <End Type="ticket_systemModel.action" Role="action" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ticket">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="action">
+              <PropertyRef Name="ticket_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ticket_systemModelStoreContainer" CdmEntityContainer="ticket_systemEntities">
-          <EntitySetMapping Name="action">
-            <EntityTypeMapping TypeName="ticket_systemModel.action">
-              <MappingFragment StoreEntitySet="action">
-                <ScalarProperty Name="created_at" ColumnName="created_at" />
-                <ScalarProperty Name="ended_at" ColumnName="ended_at" />
-                <ScalarProperty Name="note" ColumnName="note" />
-                <ScalarProperty Name="ticket_id" ColumnName="ticket_id" />
-                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
-                <ScalarProperty Name="step_order" ColumnName="step_order" />
-                <ScalarProperty Name="id_type" ColumnName="id_type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="administrator">
             <EntityTypeMapping TypeName="ticket_systemModel.administrator">
               <MappingFragment StoreEntitySet="administrator">
@@ -1038,6 +1019,20 @@ warning 6002: The table/view 'ticket_system.dbo.GetTicketsView' does not have a 
           <FunctionImportMapping FunctionImportName="UpdateClient" FunctionName="ticket_systemModel.Store.UpdateClient" />
           <FunctionImportMapping FunctionImportName="UpdateTicket" FunctionName="ticket_systemModel.Store.UpdateTicket" />
           <FunctionImportMapping FunctionImportName="UpdateTicketPriority" FunctionName="ticket_systemModel.Store.UpdateTicketPriority" />
+          <EntitySetMapping Name="action">
+            <EntityTypeMapping TypeName="ticket_systemModel.action">
+              <MappingFragment StoreEntitySet="action">
+                <ScalarProperty Name="id_type" ColumnName="id_type" />
+                <ScalarProperty Name="step_order" ColumnName="step_order" />
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="ticket_id" ColumnName="ticket_id" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="ended_at" ColumnName="ended_at" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
