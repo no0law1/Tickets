@@ -141,8 +141,11 @@ namespace L_IckEtS_EF
             using (ticket_systemEntities db = new ticket_systemEntities())
             {
                 ObjectParameter count = new ObjectParameter("res", SqlDbType.Int);
-                db.RemoveTicket(this.t.code, count);
-                if (!count.Value.Equals(0) && t.admin_id == admin_id)
+                if (t.admin_id == admin_id)
+                {
+                    db.RemoveTicket(this.t.code, count);
+                }
+                if (!count.Value.Equals(0))
                 {
                     MessageBox.Show("Ticket successfully removed");
                     OnTicketChanged(EventArgs.Empty);

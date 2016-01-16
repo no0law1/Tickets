@@ -130,7 +130,12 @@ namespace L_IckEtS_EF
             int admin_id = admin.id;
             if (actions != null && ticket.admin_id == admin_id)
             {
-                if (TicketDAO.removeTicket(database, ticket.code))
+                Boolean removed = false;
+                if (this.admin.id == admin_id)
+                {
+                    removed = TicketDAO.removeTicket(database, ticket.code);
+                }
+                if (removed)
                 {
                     MessageBox.Show("Ticket successfully removed");
                     OnTicketChanged(EventArgs.Empty);
