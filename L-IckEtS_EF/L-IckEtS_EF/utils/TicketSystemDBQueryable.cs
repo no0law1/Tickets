@@ -12,13 +12,13 @@ namespace L_IckEtS_EF.utils
 
         internal IEnumerable<ticket> getAllTicketsTable(ticket_systemEntities db)
         {
-            return db.GetTicketsView.SqlQuery("SELECT * FROM ticket WHERE ticket.deleted_at is null").AsEnumerable().ToList();
+            return db.GetTicketsView.SqlQuery("SELECT * FROM ticket").AsEnumerable().ToList();
             //return (from t in db.ticket where t.deleted_at == null select t).AsEnumerable();
         }
 
         internal IEnumerable<ticket> getNonClosedTicketsTable(ticket_systemEntities db)
         {
-            return db.GetTicketsView.SqlQuery("SELECT * FROM ticket WHERE ticket.closed_at is null AND ticket.deleted_at is null").AsEnumerable().ToList();
+            return db.GetTicketsView.SqlQuery("SELECT * FROM ticket WHERE ticket.closed_at is null").AsEnumerable().ToList();
             //return (from t in db.ticket where t.closed_at == null && t.deleted_at == null select t).AsEnumerable();
         }
 
