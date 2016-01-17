@@ -98,7 +98,7 @@ namespace L_IckEtS.data.entity
                     command.Parameters.Add("@res", SqlDbType.Int).Direction = ParameterDirection.Output;
                     db.Open();
 
-                    return command.ExecuteNonQuery() < 1 ? false : true;
+                    return command.ExecuteNonQuery() >=1;
                 }
             }
         }
@@ -113,7 +113,7 @@ namespace L_IckEtS.data.entity
                     command.Parameters.Add("@code", SqlDbType.Int).Value = code;
                     db.Open();
 
-                    return command.ExecuteNonQuery() < 1 ? false : true;
+                    return command.ExecuteNonQuery() >= 1;
                 }
             }
         }

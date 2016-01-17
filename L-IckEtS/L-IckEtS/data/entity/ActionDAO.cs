@@ -54,7 +54,7 @@ namespace L_IckEtS.data.entity
                     command.Parameters.Add("@id_type", System.Data.SqlDbType.Int).Value = action.id_type;
                     db.Open();
 
-                    return command.ExecuteNonQuery()<1 ? false : true;
+                    return command.ExecuteNonQuery()>=1;
                 }
             }
         }

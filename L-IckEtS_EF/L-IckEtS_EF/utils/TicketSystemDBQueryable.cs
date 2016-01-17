@@ -13,19 +13,19 @@ namespace L_IckEtS_EF.utils
         internal IEnumerable<ticket> getAllTicketsTable(ticket_systemEntities db)
         {
             //return db.GetTicketsView.SqlQuery("SELECT * FROM ticket").AsEnumerable().ToList();        ViewSet.AsNoTracking()
-            return (from t in db.ticket where t.deleted_at == null select t).AsEnumerable();
+            return (from t in db.ticket where t.deleted_at == null select t).AsEnumerable().ToList();
         }
 
         internal IEnumerable<ticket> getNonClosedTicketsTable(ticket_systemEntities db)
         {
             //return db.GetTicketsView.SqlQuery("SELECT * FROM ticket WHERE ticket.closed_at is null").AsEnumerable().ToList();
-            return (from t in db.ticket where t.closed_at == null && t.deleted_at == null select t).AsEnumerable();
+            return (from t in db.ticket where t.closed_at == null && t.deleted_at == null select t).AsEnumerable().ToList();
         }
 
         internal ticket getTicketById(ticket_systemEntities db, int code)
         {
-            return db.GetTicketsView.SqlQuery("SELECT * FROM ticket WHERE ticket.code = @code", new SqlParameter("@code", code)).First();
-            //return (from t in db.ticket where t.code == code select t).First();
+            //return db.GetTicketsView.SqlQuery("SELECT * FROM ticket WHERE ticket.code = @code", new SqlParameter("@code", code)).First();
+            return (from t in db.ticket where t.code == code select t).First();
         }
 
         internal client getClientById(ticket_systemEntities db, int id)
