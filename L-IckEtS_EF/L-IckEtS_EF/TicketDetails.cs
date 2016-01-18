@@ -145,7 +145,14 @@ namespace L_IckEtS_EF
                 if (t.admin_id == admin_id)
                 {
                     db.RemoveTicket(this.t.code, count);
-                    db.SaveChanges();
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbUpdateConcurrencyException exc)
+                    {
+                        TicketSystemDBQueryable.overwrite(exc);
+                    }
                 }
                 if (!count.Value.Equals(0))
                 {
@@ -174,7 +181,14 @@ namespace L_IckEtS_EF
                     if (order != -1)
                     {
                         db.CreateAction(note.Text, t.code, admin_id, order + 1, t.id_type);
-                        db.SaveChanges();
+                        try
+                        {
+                            db.SaveChanges();
+                        }
+                        catch (DbUpdateConcurrencyException exc)
+                        {
+                            TicketSystemDBQueryable.overwrite(exc);
+                        }
                         Close();
                     }
                     else
@@ -189,8 +203,15 @@ namespace L_IckEtS_EF
                         if (t.admin_id == admin_id)
                         {
                             db.CloseTicket(t.code);
-                            db.SaveChanges();
-                            OnTicketChanged(EventArgs.Empty);
+                            try
+                            {
+                                db.SaveChanges();
+                                OnTicketChanged(EventArgs.Empty);
+                            }
+                            catch (DbUpdateConcurrencyException exc)
+                            {
+                                TicketSystemDBQueryable.overwrite(exc);
+                            }
                             Close();
                         }
                         else

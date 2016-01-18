@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -67,6 +68,14 @@ namespace L_IckEtS_EF.utils
         {
             return (from a in db.action where a.ticket_id == id select a).Any();
             //return db.action.SqlQuery("SELECT * FROM action WHERE ticket_id = @id", new SqlParameter("@id", id)).Any();
+        }
+
+        public static void overwrite(DbUpdateConcurrencyException exc)
+        {
+            Console.WriteLine(exc.Message);
+            var entry = exc.Entries.Single();
+            var dbValues = entry.GetDatabaseValues();
+            entry.OriginalValues.SetValues(dbValues); 
         }
     }
 }
