@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
@@ -144,6 +145,7 @@ namespace L_IckEtS_EF
                 if (t.admin_id == admin_id)
                 {
                     db.RemoveTicket(this.t.code, count);
+                    db.SaveChanges();
                 }
                 if (!count.Value.Equals(0))
                 {
@@ -172,6 +174,7 @@ namespace L_IckEtS_EF
                     if (order != -1)
                     {
                         db.CreateAction(note.Text, t.code, admin_id, order + 1, t.id_type);
+                        db.SaveChanges();
                         Close();
                     }
                     else
@@ -186,6 +189,7 @@ namespace L_IckEtS_EF
                         if (t.admin_id == admin_id)
                         {
                             db.CloseTicket(t.code);
+                            db.SaveChanges();
                             OnTicketChanged(EventArgs.Empty);
                             Close();
                         }
